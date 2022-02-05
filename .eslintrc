@@ -1,0 +1,32 @@
+{
+  "plugins": ["react-hooks"],
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended", 
+    "plugin:react/recommended", 
+    "prettier", 
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-control-regex": 0,
+    "no-unused-vars": "warn"
+  },
+  "ecmaFeatures": {
+    "globalReturn": false,
+    "jsx": true
+  },
+  "globals": {
+    "React": "writable"
+  },
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
