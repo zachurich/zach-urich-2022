@@ -1,26 +1,27 @@
 import { Link, useLoaderData, useLocation } from 'remix';
-import { getNavigation, NavItem } from '../prismic';
+import { cms, Home, NavItem, Post } from '../cms';
+import { getDrawings } from '../instagram';
 
 type Content = {
-  nav: NavItem[];
+  navigation: NavItem[];
+  posts: Post[];
+  home: Home;
 };
 
 export const loader = async (): Promise<Content> => {
-  const navigation = await getNavigation();
+  const navigation = await cms.getNavigation();
+  const posts = await cms.getPosts();
+  const home = await cms.getHome();
+
   return {
-    nav: [
-      {
-        id: 'home',
-        to: '/',
-        text: 'zachurich.com',
-      },
-      ...navigation,
-    ],
+    navigation,
+    posts,
+    home,
   };
 };
 
 export default function Index() {
-  const cms = useLoaderData();
+  const { navigation, posts, home } = useLoaderData<Content>();
   const location = useLocation();
   console.log(location);
   return (
@@ -28,7 +29,7 @@ export default function Index() {
       <header>
         <nav>
           <ul>
-            {cms.nav.map((link: NavItem) => {
+            {navigation.map((link: NavItem) => {
               if (link.external) {
                 return (
                   <li key={link.id}>
@@ -55,7 +56,26 @@ export default function Index() {
         </nav>
       </header>
       <main id="main-content">
-        <h1>Welcome to Remix</h1>
+        {/* <h1>Welcome to Remix</h1> */}
+        <img src={home.mePic} alt="Zach Urich" />
+
+        <p>{home.intro}</p>
+
+        <div>
+          <ul>
+            {posts.map((post) => {
+              return (
+                <li key={post.link}>
+                  <Link to={post.link}>
+                    <span>{post.title}</span>
+                    <br></br>
+                    <span>{post.date}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </main>
     </div>
   );
