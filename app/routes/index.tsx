@@ -1,6 +1,5 @@
 import { Link, useLoaderData, useLocation } from 'remix';
 import { cms, Home, NavItem, Post } from '../cms';
-import { getDrawings } from '../instagram';
 
 type Content = {
   navigation: NavItem[];
@@ -23,7 +22,7 @@ export const loader = async (): Promise<Content> => {
 export default function Index() {
   const { navigation, posts, home } = useLoaderData<Content>();
   const location = useLocation();
-  console.log(location);
+
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       <header>
