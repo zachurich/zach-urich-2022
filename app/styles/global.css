@@ -1,0 +1,114 @@
+:root {
+  --background-color: #000000;
+  --primary-color: #6691ff;
+  --secondary-color: #ffe247;
+  --text-color: #eeeeee;
+
+  --primary-font: 'Roboto Mono', monospace;
+  --weight-bold: 700;
+  --weight-reg: 400;
+  --size-reg: 16px;
+}
+
+html,
+body {
+  font-family: var(--primary-font);
+  font-weight: var(--weight-reg);
+  font-size: var(--size-reg);
+  line-height: 1.4;
+}
+
+body {
+  display: block;
+  margin: 0 auto;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+header,
+nav,
+main {
+  width: 100%;
+}
+
+main {
+  position: relative;
+}
+
+a {
+  color: var(--primary-color);
+  font-weight: var(--weight-bold);
+}
+
+a:hover {
+  color: var(--secondary-color);
+}
+
+.site-wrapper {
+  max-width: 45.3125rem;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 3rem 0 5rem;
+  font-size: 1.125rem;
+}
+
+.site-header h1 {
+  font-size: inherit;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+}
+
+.primary-navigation,
+.error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation-items {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+}
+
+.navigation-items a:not(:hover) {
+  color: white;
+}
+
+.navigation-item--current a:not(:hover) {
+  color: var(--primary-color);
+}
+
+.navigation-item--home {
+  font-style: italic;
+}
+
+.navigation-item {
+  margin-left: 0.6rem;
+  margin-right: 0.6rem;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-content {
+  text-align: center;
+  margin: 3rem 0 5rem;
+}
+
+.error-content h1 {
+  margin-top: 0;
+  padding-top: 0;
+}

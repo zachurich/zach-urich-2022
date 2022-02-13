@@ -1,64 +1,45 @@
-import { Link, useLoaderData, useLocation } from 'remix';
-import { cms, Home, NavItem, Post } from '../cms';
+import { Link, useLoaderData } from 'remix';
+import { cms, Home, Post } from '../cms';
+import { Shape1 } from '../svgs';
+
+import type { MetaFunction } from 'remix';
+
+import styles from '~/styles/home.css';
 
 type Content = {
-  navigation: NavItem[];
   posts: Post[];
   home: Home;
 };
 
 export const loader = async (): Promise<Content> => {
-  const navigation = await cms.getNavigation();
   const posts = await cms.getPosts();
   const home = await cms.getHome();
 
   return {
-    navigation,
     posts,
     home,
   };
 };
 
+export function links() {
+  return [{ rel: 'stylesheet', href: styles }];
+}
+
+export const meta: MetaFunction = () => {
+  return { title: 'home - zachurich.com' };
+};
+
 export default function Index() {
-  const { navigation, posts, home } = useLoaderData<Content>();
-  const location = useLocation();
+  const { posts, home } = useLoaderData<Content>();
 
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <header>
-        <nav>
-          <ul>
-            {navigation.map((link: NavItem) => {
-              if (link.external) {
-                return (
-                  <li key={link.id}>
-                    <a href={link.to} target="_blank" rel="noreferrer">
-                      {link.text}
-                    </a>
-                  </li>
-                );
-              }
-              return (
-                <li key={link.id}>
-                  <Link
-                    to={link.to}
-                    aria-current={
-                      location.pathname === link.to ? 'page' : undefined
-                    }
-                  >
-                    {link.text}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </header>
-      <main id="main-content">
-        {/* <h1>Welcome to Remix</h1> */}
-        <img src={home.mePic} alt="Zach Urich" />
-
-        <p>{home.intro}</p>
+    <>
+      <Shape1 />
+      <div className="page-content home-content">
+        <div className="intro">
+          <img className="intro-pic" src={home.mePic} alt="Zach Urich" />
+          <p className="intro-text">{home.intro}</p>
+        </div>
 
         <div>
           <ul>
@@ -75,7 +56,7 @@ export default function Index() {
             })}
           </ul>
         </div>
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
