@@ -41,7 +41,7 @@ export const links: LinksFunction = () => {
     {
       rel: 'preconnect',
       href: 'https://fonts.googleapis.com',
-      crossOrigin: 'anonymous',
+      // crossOrigin: 'anonymous',
     },
     {
       rel: 'stylesheet',
@@ -58,15 +58,14 @@ function Header({ data }: { data: NavItem[] }) {
   const location = useLocation();
   return (
     <header className="site-header">
-      <h1>
-        <Link
-          className="home-link"
-          to="/"
-          aria-current={location.pathname === '/' ? 'page' : undefined}
-        >
-          zachurich.com
-        </Link>
-      </h1>
+      <Link
+        className="home-link"
+        to="/"
+        aria-current={location.pathname === '/' ? 'page' : undefined}
+        prefetch="intent"
+      >
+        zachurich.com
+      </Link>
       <nav className="primary-navigation">
         <ul className="navigation-items">
           {data.map((link: NavItem) => {
@@ -91,6 +90,7 @@ function Header({ data }: { data: NavItem[] }) {
                   aria-current={
                     location.pathname === link.to ? 'page' : undefined
                   }
+                  prefetch="intent"
                 >
                   {link.text}
                 </Link>
@@ -100,6 +100,14 @@ function Header({ data }: { data: NavItem[] }) {
         </ul>
       </nav>
     </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <p>Copyright {new Date().getFullYear()}</p>
+    </footer>
   );
 }
 
@@ -136,7 +144,9 @@ export function CatchBoundary() {
         <main id="main-content">
           <div className="page-content error-content">
             <h1>{errorMsg}</h1>
-            <Link to="/">return home</Link>
+            <Link to="/" prefetch="intent">
+              return home
+            </Link>
           </div>
         </main>
       </div>
@@ -153,6 +163,7 @@ export default function App() {
         <main id="main-content">
           <Outlet />
         </main>
+        <Footer />
       </div>
     </Document>
   );

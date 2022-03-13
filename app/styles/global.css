@@ -7,7 +7,7 @@
   --primary-font: 'Roboto Mono', monospace;
   --weight-bold: 700;
   --weight-reg: 400;
-  --size-reg: 16px;
+  --size-reg: 18px;
 }
 
 html,
@@ -16,6 +16,7 @@ body {
   font-weight: var(--weight-reg);
   font-size: var(--size-reg);
   line-height: 1.4;
+  text-transform: lowercase;
 }
 
 body {
@@ -23,6 +24,15 @@ body {
   margin: 0 auto;
   background-color: var(--background-color);
   color: var(--text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin-top: 0;
+  margin-bottom: 1rem;
 }
 
 header,
@@ -33,6 +43,13 @@ main {
 
 main {
   position: relative;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+footer {
+  padding: 1rem 0;
+  font-size: 0.8rem;
 }
 
 a {
@@ -42,6 +59,15 @@ a {
 
 a:hover {
   color: var(--secondary-color);
+}
+
+pre {
+  font-size: 0.9rem;
+  padding: 0.8rem 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: var(--secondary-color);
+  overflow-x: auto;
 }
 
 .site-wrapper {
@@ -58,10 +84,9 @@ a:hover {
   align-items: center;
   flex-direction: column;
   margin: 3rem 0 5rem;
-  font-size: 1.125rem;
 }
 
-.site-header h1 {
+.site-header .home-link {
   font-size: inherit;
   margin-top: 0;
   margin-bottom: 1.2rem;
@@ -111,4 +136,16 @@ a:hover {
 .error-content h1 {
   margin-top: 0;
   padding-top: 0;
+}
+
+.shape {
+  position: absolute;
+  z-index: -1;
+  top: -50px;
+  left: -50px;
+}
+
+.shape path {
+  fill: var(--secondary-color);
+  opacity: 0.2;
 }

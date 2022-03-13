@@ -1,8 +1,9 @@
-import { Link, useLoaderData } from 'remix';
-import { cms, Home, Post } from '../cms';
-import { Shape1 } from '../svgs';
-
 import type { MetaFunction } from 'remix';
+import type { Home, Post } from '~/cms';
+
+import { Link, useLoaderData } from 'remix';
+import { cms } from '../cms';
+import { Shape1 } from '../svgs';
 
 import styles from '~/styles/home.css';
 
@@ -26,7 +27,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-  return { title: 'home - zachurich.com' };
+  return { title: 'zachurich.com' };
 };
 
 export default function Index() {
@@ -36,26 +37,29 @@ export default function Index() {
     <>
       <Shape1 />
       <div className="page-content home-content">
-        <div className="intro">
+        <section className="intro">
           <img className="intro-pic" src={home.mePic} alt="Zach Urich" />
-          <p className="intro-text">{home.intro}</p>
-        </div>
-
-        <div>
-          <ul>
+          <div className="intro-text">
+            <h1>hello! i&apos;m zach.</h1>
+            <p>{home.intro}</p>
+          </div>
+        </section>
+        <section>
+          <h2>{home.sectionHeader}</h2>
+          <ul className="posts">
             {posts.map((post) => {
               return (
-                <li key={post.link}>
+                <li key={post.link} className="post">
                   <Link to={post.link}>
-                    <span>{post.title}</span>
+                    <span className="post-title">{post.title}</span>
                     <br></br>
-                    <span>{post.date}</span>
+                    <span className="post-date">{post.date}</span>
                   </Link>
                 </li>
               );
             })}
           </ul>
-        </div>
+        </section>
       </div>
     </>
   );

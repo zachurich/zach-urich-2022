@@ -1,6 +1,6 @@
 export function Shape1() {
   return (
-    <div className="shape-1" aria-hidden="true">
+    <div className="shape" aria-hidden="true">
       <svg
         width="416"
         height="254"
@@ -16,7 +16,7 @@ export function Shape1() {
 
 export function Shape2() {
   return (
-    <div className="shape-2" aria-hidden="true">
+    <div className="shape" aria-hidden="true">
       <svg
         width="255"
         height="243"
