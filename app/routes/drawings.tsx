@@ -28,20 +28,20 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Drawings() {
-  const { drawings } = useLoaderData<InstaResponse[]>();
+  const { drawings } = useLoaderData<Content>();
 
   if (!drawings) return null;
 
   return (
     <>
       <Shape1 />
-      <ul className="drawings">
+      <ul className="drawings grid">
         {drawings.map((drawing) => {
           if (drawing.media_type === 'IMAGE') {
             return (
-              <li key={drawing.id}>
+              <li className="grid-item" key={drawing.id}>
                 <a href={drawing.permalink} target="_blank" rel="noreferrer">
-                  <img src={drawing.media_url} alt={`${drawing.caption} `} />
+                  <img src={drawing.media_url} alt={`${drawing.caption}`} />
                 </a>
               </li>
             );
