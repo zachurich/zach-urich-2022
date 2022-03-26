@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import { MetaFunction, LinksFunction, useCatch } from 'remix';
+import { ReactNode, useEffect, useRef, useState } from 'react';
+import { MetaFunction, LinksFunction, useCatch, useTransition } from 'remix';
 import type { NavItem } from './cms';
 
 import {
@@ -59,14 +59,16 @@ function Header({ data }: { data: NavItem[] }) {
   return (
     <header className="site-header container">
       <Link
-        className="home-link"
+        className={classNames('home-link', {
+          'navigation-item--current': location.pathname === '/',
+        })}
         to="/"
         aria-current={location.pathname === '/' ? 'page' : undefined}
         prefetch="intent"
       >
         zachurich.com
       </Link>
-      <nav className="primary-navigation">
+      <nav id="navigation" className="primary-navigation">
         <ul className="navigation-items">
           {data.map((link: NavItem) => {
             if (link.external) {
@@ -112,6 +114,19 @@ function Footer() {
 }
 
 function Document({ children }: { children: ReactNode }) {
+  // Attempt with client-side routing focus issues
+  // https://kittygiraudel.com/2020/01/15/accessible-title-in-a-single-page-react-application/
+  const [announceTitle, setAnnounceTitle] = useState<string | undefined>();
+  const { hash, pathname } = useLocation();
+  const initialFocusRef = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    const initialFocus = initialFocusRef.current;
+    if (initialFocus && document.title && !location.hash) {
+      setAnnounceTitle(document.title);
+      initialFocus.focus();
+    }
+  }, [pathname, hash]);
+
   return (
     <html lang="en">
       <head>
@@ -121,6 +136,10 @@ function Document({ children }: { children: ReactNode }) {
         <Links />
       </head>
       <body>
+        <span className="hidden" ref={initialFocusRef} tabIndex={-1}>
+          {announceTitle}
+        </span>
+
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -132,7 +151,7 @@ function Document({ children }: { children: ReactNode }) {
 
 export function CatchBoundary() {
   const caught = useCatch();
-  let errorMsg = '';
+  let errorMsg = 'something went very wrong';
 
   if (caught.status === 404) {
     errorMsg = 'page not found';
@@ -141,13 +160,13 @@ export function CatchBoundary() {
   return (
     <Document>
       <div className="site-wrapper error-page">
-        <main id="main-content">
-          <div className="page-content error-content">
-            <h1>{errorMsg}</h1>
+        <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
+          <section className="page-content error-content">
+            <h1 id="page-header">{errorMsg}</h1>
             <Link to="/" prefetch="intent">
               return home
             </Link>
-          </div>
+          </section>
         </main>
       </div>
     </Document>
@@ -158,9 +177,12 @@ export default function App() {
   const { navigation } = useLoaderData<Content>();
   return (
     <Document>
+      <a className="focus-only" href="#main-content">
+        Skip to main content
+      </a>
       <div className="site-wrapper">
         <Header data={navigation} />
-        <main id="main-content">
+        <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
           <Outlet />
         </main>
         <Footer />

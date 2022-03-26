@@ -10,6 +10,11 @@ const client = prismic.createClient(endpoint, {
   fetch,
 });
 
+export type ExternalLink = {
+  url: string;
+  target: '_blank';
+};
+
 export type NavItem = {
   id: string;
   to: string;
@@ -29,10 +34,17 @@ export type PostContent = {
   date: string;
 };
 
-export type Home = {
+export type HomePageContent = {
+  header: string;
   mePic: string;
   intro: string;
   sectionHeader: string;
+};
+
+export type ArtPageContent = {
+  header: string;
+  intro: string;
+  moreLink: ExternalLink;
 };
 
 const getNavigation = async (): Promise<NavItem[] | []> => {
@@ -69,13 +81,29 @@ const getPosts = async (): Promise<Post[]> => {
   });
 };
 
-const getHome = async (): Promise<Home> => {
+const getHome = async (): Promise<HomePageContent> => {
   const data = await client.getByType('home_page');
   const fields = data.results[0].data;
   return {
+    header: fields.header[0].text,
     mePic: fields.me_pic.url,
     intro: fields.intro[0].text,
     sectionHeader: fields.section_header[0].text,
+  };
+};
+
+const getGridPageContent = async (
+  pageSlug: 'art-page' | 'photos',
+): Promise<ArtPageContent> => {
+  const data = await client.getAllByType('art');
+
+  const fields =
+    data?.find((page) => page?.slugs?.includes(pageSlug))?.data ?? data[0].data;
+
+  return {
+    header: fields.header[0].text,
+    intro: fields.intro[0].text,
+    moreLink: fields.more_link,
   };
 };
 
@@ -94,4 +122,5 @@ export const cms = {
   getNavigation,
   getPosts,
   getPost,
+  getGridPageContent,
 };

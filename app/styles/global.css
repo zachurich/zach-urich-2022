@@ -19,6 +19,7 @@ body {
 }
 
 body {
+  position: relative;
   display: block;
   margin: 0 auto;
   background-color: var(--background-color);
@@ -48,12 +49,17 @@ main,
   box-sizing: border-box;
 }
 
+main {
+  margin-bottom: 3rem;
+}
+
 footer {
   padding: 1rem 0;
   font-size: 0.8rem;
 }
 
 a {
+  text-transform: lowercase;
   color: var(--primary-color);
   font-weight: var(--weight-bold);
 }
@@ -75,6 +81,37 @@ p {
   margin-top: 0;
 }
 
+/*
+https://kittygiraudel.com/2020/01/15/accessible-title-in-a-single-page-react-application/
+**/
+.hidden {
+  border: 0 !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  position: absolute !important;
+  width: 1px !important;
+  white-space: nowrap !important;
+}
+
+.focus-only {
+  padding: 1rem;
+  display: block;
+  position: absolute;
+  left: -200rem;
+  background-color: black;
+  z-index: 9999;
+}
+
+.focus-only:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
 .site-wrapper {
   max-width: 45.3125rem;
   display: flex;
@@ -87,7 +124,7 @@ p {
 .site-header {
   display: flex;
   align-items: flex-start;
-  flex-direction: row;
+  flex-direction: column;
   margin: 2rem 0 4rem;
 }
 
@@ -97,11 +134,15 @@ p {
   margin-bottom: 1.2rem;
 }
 
+.home-link:not(:hover) {
+  color: white;
+}
+
 .primary-navigation,
 .error-page {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .navigation-items {
@@ -115,7 +156,8 @@ p {
   color: white;
 }
 
-.navigation-item--current a:not(:hover) {
+.navigation-item--current a:not(:hover),
+.navigation-item--current:not(:hover) {
   color: var(--primary-color);
 }
 
@@ -129,7 +171,7 @@ p {
 }
 
 .navigation-item:first-of-type {
-  margin-left: 0.8rem;
+  margin-left: 0rem;
 }
 
 .page-content {
@@ -157,6 +199,39 @@ p {
 .shape path {
   fill: var(--secondary-color);
   opacity: 0.2;
+}
+
+.bottom-link {
+  display: block;
+  text-align: center;
+}
+
+@media screen and (min-width: 400px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-bottom: 1rem;
+  }
+
+  .site-header {
+    flex-direction: row;
+  }
+
+  .primary-navigation,
+  .error-page {
+    justify-content: flex-end;
+  }
+
+  .navigation-item {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+  }
+
+  .navigation-item:first-of-type {
+    margin-left: 0.8rem;
+  }
 }
 
 @media screen and (min-width: 700px) {

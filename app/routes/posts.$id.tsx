@@ -30,8 +30,8 @@ export function links() {
   return [{ rel: 'stylesheet', href: styles }];
 }
 
-export const meta: MetaFunction = () => {
-  return { title: 'zachurich.com' };
+export const meta: MetaFunction = ({ data }: { data: Content }) => {
+  return { title: `zachurich.com - post - ${data.post.title}` };
 };
 
 export default function Post() {
@@ -43,9 +43,12 @@ export default function Post() {
     <>
       <Shape1 />
       <article className="post">
-        <h1>{post.title}</h1>
+        <h1 id="page-header">{post.title}</h1>
         <span className="post-date">{post.date}</span>
         <RenderContent content={post.content} />
+        <Link className="bottom-link" to="/#writing">
+          more posts
+        </Link>
       </article>
     </>
   );

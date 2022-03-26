@@ -1,5 +1,5 @@
 import type { MetaFunction } from 'remix';
-import type { Home, Post } from '~/cms';
+import type { HomePageContent, Post } from '~/cms';
 
 import { Link, useLoaderData } from 'remix';
 import { cms } from '../cms';
@@ -9,16 +9,16 @@ import styles from '~/styles/home.css';
 
 type Content = {
   posts: Post[];
-  home: Home;
+  content: HomePageContent;
 };
 
 export const loader = async (): Promise<Content> => {
   const posts = await cms.getPosts();
-  const home = await cms.getHome();
+  const content = await cms.getHome();
 
   return {
     posts,
-    home,
+    content,
   };
 };
 
@@ -27,25 +27,27 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-  return { title: 'zachurich.com' };
+  return { title: 'zachurich.com - Homepage' };
 };
 
 export default function Index() {
-  const { posts, home } = useLoaderData<Content>();
+  const { posts, content } = useLoaderData<Content>();
 
   return (
     <>
       <Shape1 />
       <div className="page-content home-content">
         <section className="intro">
-          <img className="intro-pic" src={home.mePic} alt="Zach Urich" />
+          <img className="intro-pic" src={content.mePic} alt="Zach Urich" />
           <div className="intro-text">
-            <h1>hello! i&apos;m zach.</h1>
-            <p>{home.intro}</p>
+            <h1 id="page-header">{content.header}</h1>
+            <p>{content.intro}</p>
           </div>
         </section>
-        <section>
-          <h2>{home.sectionHeader}</h2>
+        <article>
+          <h2 id={content.sectionHeader.toLowerCase()}>
+            {content.sectionHeader}
+          </h2>
           <ul className="posts">
             {posts.map((post) => {
               return (
@@ -59,7 +61,7 @@ export default function Index() {
               );
             })}
           </ul>
-        </section>
+        </article>
       </div>
     </>
   );
