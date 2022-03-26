@@ -57,7 +57,7 @@ export const meta: MetaFunction = () => {
 function Header({ data }: { data: NavItem[] }) {
   const location = useLocation();
   return (
-    <header className="site-header">
+    <header className="site-header container">
       <Link
         className="home-link"
         to="/"

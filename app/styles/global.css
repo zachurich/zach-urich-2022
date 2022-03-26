@@ -16,7 +16,6 @@ body {
   font-weight: var(--weight-reg);
   font-size: var(--size-reg);
   line-height: 1.4;
-  text-transform: lowercase;
 }
 
 body {
@@ -32,7 +31,8 @@ h3,
 h4,
 h5 {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  text-transform: lowercase;
 }
 
 header,
@@ -41,7 +41,8 @@ main {
   width: 100%;
 }
 
-main {
+main,
+.container {
   position: relative;
   padding: 0 1rem;
   box-sizing: border-box;
@@ -70,6 +71,10 @@ pre {
   overflow-x: auto;
 }
 
+p {
+  margin-top: 0;
+}
+
 .site-wrapper {
   max-width: 45.3125rem;
   display: flex;
@@ -81,9 +86,9 @@ pre {
 
 .site-header {
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin: 3rem 0 5rem;
+  align-items: flex-start;
+  flex-direction: row;
+  margin: 2rem 0 4rem;
 }
 
 .site-header .home-link {
@@ -96,7 +101,7 @@ pre {
 .error-page {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .navigation-items {
@@ -119,8 +124,12 @@ pre {
 }
 
 .navigation-item {
-  margin-left: 0.6rem;
-  margin-right: 0.6rem;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+}
+
+.navigation-item:first-of-type {
+  margin-left: 0.8rem;
 }
 
 .page-content {
@@ -148,4 +157,23 @@ pre {
 .shape path {
   fill: var(--secondary-color);
   opacity: 0.2;
+}
+
+@media screen and (min-width: 700px) {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-bottom: 1rem;
+  }
+
+  .navigation-item {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+  }
+
+  .navigation-item:first-of-type {
+    margin-left: 0.8rem;
+  }
 }

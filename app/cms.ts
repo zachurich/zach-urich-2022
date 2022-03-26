@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as prismic from '@prismicio/client';
-import * as prismicH from '@prismicio/helpers';
-import { dateFromString } from './dates';
+import { dateFromString } from '~/dates';
+
+import type { RTNode } from '@prismicio/types';
 
 const endpoint = prismic.getEndpoint('zachurichblog');
 
@@ -24,7 +25,7 @@ export type Post = {
 
 export type PostContent = {
   title: string;
-  content: string;
+  content: [RTNode, ...RTNode[]];
   date: string;
 };
 
@@ -41,13 +42,9 @@ const getNavigation = async (): Promise<NavItem[] | []> => {
   if (navItems instanceof Array) {
     return navItems?.map((field) => {
       return {
-        // @ts-expect-error
         id: `${data?.[0]?.id}-${field.to}`,
-        // @ts-expect-error
         to: field.to,
-        // @ts-expect-error
         text: field.text,
-        // @ts-expect-error
         external: field.to?.includes('https://'),
       };
     });
@@ -65,7 +62,6 @@ const getPosts = async (): Promise<Post[]> => {
   });
   return data.map((post) => {
     return {
-      // @ts-expect-error
       title: post.data.title?.[0]?.text,
       link: `/posts/${post.uid}`,
       date: dateFromString(post.first_publication_date),
@@ -77,11 +73,8 @@ const getHome = async (): Promise<Home> => {
   const data = await client.getByType('home_page');
   const fields = data.results[0].data;
   return {
-    // @ts-expect-error
     mePic: fields.me_pic.url,
-    // @ts-expect-error
     intro: fields.intro[0].text,
-    // @ts-expect-error
     sectionHeader: fields.section_header[0].text,
   };
 };
@@ -89,11 +82,10 @@ const getHome = async (): Promise<Home> => {
 const getPost = async (postId: string): Promise<PostContent> => {
   const data = await client.getByUID('post', postId);
   return {
-    // @ts-expect-error
     title: data.data.title[0].text,
-    // @ts-expect-error
-    content: prismicH.asHTML(data.data.body),
+    content: data.data.body,
     date: dateFromString(data.first_publication_date),
+    // previousPost:
   };
 };
 

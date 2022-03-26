@@ -2,8 +2,9 @@ import { Link, MetaFunction } from 'remix';
 import type { PostContent } from '~/cms';
 
 import { LoaderFunction, useLoaderData } from 'remix';
-import { cms } from '../cms';
-import { Shape1 } from '../svgs';
+import { cms } from '~/cms';
+import { Shape1 } from '~/svgs';
+import { RenderContent } from '~/components/Cms';
 
 import styles from '~/styles/posts.css';
 
@@ -11,7 +12,9 @@ type Content = {
   post: PostContent;
 };
 
-export const loader: LoaderFunction = async ({ params }): Promise<Content> => {
+export const loader: LoaderFunction = async ({
+  params,
+}): Promise<Content | null> => {
   const postId = params.id;
   if (postId) {
     const post = await cms.getPost(postId);
@@ -20,9 +23,7 @@ export const loader: LoaderFunction = async ({ params }): Promise<Content> => {
     };
   }
 
-  return {
-    post: { title: 'Not Found', content: 'Missing post...', date: 'Never' },
-  };
+  return null;
 };
 
 export function links() {
@@ -33,17 +34,18 @@ export const meta: MetaFunction = () => {
   return { title: 'zachurich.com' };
 };
 
-export default function Index() {
+export default function Post() {
   const { post } = useLoaderData<Content>();
+
+  if (!post) return null;
 
   return (
     <>
       <Shape1 />
-      <Link to="/">home</Link>
       <article className="post">
         <h1>{post.title}</h1>
         <span className="post-date">{post.date}</span>
-        <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+        <RenderContent content={post.content} />
       </article>
     </>
   );
