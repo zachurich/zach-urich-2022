@@ -152,7 +152,7 @@ function Document({ children }: { children: ReactNode }) {
 export function CatchBoundary() {
   const caught = useCatch();
   let errorMsg = 'something went very wrong';
-
+  console.log('ZACH', caught);
   if (caught.status === 404) {
     errorMsg = 'page not found';
   }
@@ -163,6 +163,24 @@ export function CatchBoundary() {
         <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
           <section className="page-content error-content">
             <h1 id="page-header">{errorMsg}</h1>
+            <Link to="/" prefetch="intent">
+              return home
+            </Link>
+          </section>
+        </main>
+      </div>
+    </Document>
+  );
+}
+
+export function ErrorBoundary({ error }) {
+  console.error(error);
+  return (
+    <Document>
+      <div className="site-wrapper error-page">
+        <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
+          <section className="page-content error-content">
+            <h1 id="page-header">something went very wrong...</h1>
             <Link to="/" prefetch="intent">
               return home
             </Link>
