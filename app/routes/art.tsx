@@ -45,7 +45,7 @@ export default function Drawings() {
         <h1 id="page-header">{content.header}</h1>
         <p>{content.intro}</p>
       </section>
-      <Grid<InstaResponse[]> grid={drawings} />
+      <Grid<InstaResponse[]> grid={drawings} columns={2} />
       <a
         className="bottom-link"
         href={content.moreLink.url}
