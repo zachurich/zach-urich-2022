@@ -2,10 +2,11 @@ import type { MetaFunction } from 'remix';
 import type { HomePageContent, Post } from '~/cms';
 
 import { Link, useLoaderData } from 'remix';
-import { cms } from '../cms';
-import { Shape1 } from '../svgs';
+import { cms } from '~/cms';
+import { Shape1 } from '~/svgs';
 
 import styles from '~/styles/home.css';
+import { AnimatedImage } from '../components/AnimatedImage';
 
 type Content = {
   posts: Post[];
@@ -38,7 +39,11 @@ export default function Index() {
       <Shape1 />
       <div className="page-content home-content">
         <section className="intro">
-          <img className="intro-pic" src={content.mePic} alt="Zach Urich" />
+          <AnimatedImage
+            className="intro-pic"
+            src={content.mePic}
+            alt="Zach Urich"
+          />
           <div className="intro-text">
             <h1 id="page-header">{content.header}</h1>
             <p>{content.intro}</p>

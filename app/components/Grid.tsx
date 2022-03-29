@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { AnimatedImage } from './AnimatedImage';
 
 type Props<DataType> = {
   grid: DataType;
@@ -19,7 +20,7 @@ export function Grid<GridData>({ grid, columns = 1 }: Props<GridData>) {
             return (
               <li className="grid-item" key={item.id}>
                 <a href={item.permalink} target="_blank" rel="noreferrer">
-                  <img
+                  <AnimatedImage
                     src={item.media_url}
                     alt={`${item.caption}`}
                     loading="lazy"

@@ -1,4 +1,32 @@
+import { useSpring, animated } from '@react-spring/web';
+import { useContext, useEffect } from 'react';
+import { AnimationContext, colors } from '~/animation';
+
 export function Shape1() {
+  const animationContext = useContext(AnimationContext);
+
+  const [currentAnimation, animation] = useSpring(() => ({
+    path: animationContext.path,
+    color: animationContext.color,
+  }));
+
+  useEffect(() => {
+    const newPath = Math.floor(Math.random() * 100);
+
+    // cycle colors until we hit the last one, start again
+    const newColor =
+      colors.indexOf(animationContext.color) < colors.length - 1
+        ? colors[colors.indexOf(animationContext.color) + 1]
+        : colors[0];
+
+    animation.start({ path: newPath, color: newColor });
+    animationContext.updateValues({
+      path: newPath,
+      color: newColor,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="shape" aria-hidden="true">
       <svg
@@ -8,7 +36,16 @@ export function Shape1() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M177.043 0.885454L415.723 134.814L252.456 253.733L0.428537 242.751L100.309 162.075L177.043 0.885454Z" />
+        <animated.path
+          fill={currentAnimation.color}
+          d={currentAnimation.path.to({
+            range: [0, 100],
+            output: [
+              'M177.043 0.885454L415.723 134.814L252.456 253.733L0.428537 242.751L100.309 162.075L177.043 0.885454Z',
+              'M285 1.52588e-05L252.5 179.5L348 309.751L78.5 364L-3.01896e-06 240L285 1.52588e-05Z',
+            ],
+          })}
+        />
       </svg>
     </div>
   );

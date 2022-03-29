@@ -198,7 +198,7 @@ https://kittygiraudel.com/2020/01/15/accessible-title-in-a-single-page-react-app
 }
 
 .shape path {
-  fill: var(--secondary-color);
+  /* fill: var(--secondary-color); */
   opacity: 0.2;
 }
 

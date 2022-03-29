@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as prismic from '@prismicio/client';
 import { dateFromString } from '~/dates';
 

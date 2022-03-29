@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
-import { MetaFunction, LinksFunction, useCatch, useTransition } from 'remix';
+import { MetaFunction, LinksFunction, useCatch } from 'remix';
 import type { NavItem } from './cms';
 
 import {
@@ -16,7 +16,12 @@ import {
 
 import classNames from 'classnames';
 
-import { cms } from './cms';
+import {
+  AnimationContext,
+  AnimationStateType,
+  initialAnimationState,
+} from '~/animation';
+import { cms } from '~/cms';
 
 import styles from '~/styles/global.css';
 
@@ -152,7 +157,6 @@ function Document({ children }: { children: ReactNode }) {
 export function CatchBoundary() {
   const caught = useCatch();
   let errorMsg = 'something went very wrong';
-  console.log('ZACH', caught);
   if (caught.status === 404) {
     errorMsg = 'page not found';
   }
@@ -173,8 +177,7 @@ export function CatchBoundary() {
   );
 }
 
-export function ErrorBoundary({ error }) {
-  console.error(error);
+export function ErrorBoundary() {
   return (
     <Document>
       <div className="site-wrapper error-page">
@@ -193,6 +196,9 @@ export function ErrorBoundary({ error }) {
 
 export default function App() {
   const { navigation } = useLoaderData<Content>();
+  const [animationValues, setAnimationValues] = useState<AnimationStateType>(
+    initialAnimationState,
+  );
   return (
     <Document>
       <a className="focus-only" href="#main-content">
@@ -201,7 +207,15 @@ export default function App() {
       <div className="site-wrapper">
         <Header data={navigation} />
         <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
-          <Outlet />
+          <AnimationContext.Provider
+            value={{
+              ...animationValues,
+              updateValues: (newValues) =>
+                setAnimationValues((values) => ({ ...values, ...newValues })),
+            }}
+          >
+            <Outlet />
+          </AnimationContext.Provider>
         </main>
         <Footer />
       </div>
