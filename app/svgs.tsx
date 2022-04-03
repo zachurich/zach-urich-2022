@@ -19,11 +19,19 @@ export function Shape1() {
         ? colors[colors.indexOf(animationContext.color) + 1]
         : colors[0];
 
-    animation.start({ path: newPath, color: newColor });
+    // setTimeout(async () => {
+    animation.start({
+      path: newPath,
+      color: newColor,
+      config: { tension: 150, friction: 20 },
+    });
+    // }, 600);
+
     animationContext.updateValues({
       path: newPath,
       color: newColor,
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

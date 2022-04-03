@@ -42,6 +42,8 @@ export default function Index() {
           <AnimatedImage
             className="intro-pic"
             src={content.mePic}
+            width={162}
+            height={162}
             alt="Zach Urich"
           />
           <div className="intro-text">
