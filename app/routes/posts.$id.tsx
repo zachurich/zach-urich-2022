@@ -31,7 +31,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = ({ data }: { data: Content }) => {
-  return { title: `zachurich.com - post - ${data.post.title}` };
+  return { title: `${data.post.title} - zachurich.com` };
 };
 
 export default function Post() {

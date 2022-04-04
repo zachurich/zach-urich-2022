@@ -28,7 +28,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = () => {
-  return { title: 'zachurich.com - Homepage' };
+  return { title: 'Homepage - zachurich.com' };
 };
 
 export default function Index() {
