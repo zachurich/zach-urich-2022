@@ -2,6 +2,7 @@ import * as prismic from '@prismicio/client';
 import { dateFromString } from '~/dates';
 
 import type { RTNode } from '@prismicio/types';
+import { withCache } from './redis';
 
 const endpoint = prismic.getEndpoint('zachurichblog');
 
@@ -117,9 +118,9 @@ const getPost = async (postId: string): Promise<PostContent> => {
 };
 
 export const cms = {
-  getHome,
-  getNavigation,
-  getPosts,
+  getHome: withCache<HomePageContent>(getHome, 'cms_home'),
+  getNavigation: withCache<NavItem[]>(getNavigation, 'cms_nav'),
+  getPosts: withCache<Post[]>(getPosts, 'cms_posts'),
   getPost,
   getGridPageContent,
 };

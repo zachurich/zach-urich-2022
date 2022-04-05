@@ -8,10 +8,6 @@
   margin-bottom: 3rem;
 }
 
-.grid-two-column {
-  grid-template-columns: 1fr 1fr;
-}
-
 .grid-wrapper {
   min-height: 100vh;
 }
@@ -32,4 +28,10 @@
 .grid-item a {
   display: flex;
   height: 100%;
+}
+
+@media screen and (min-width: 700px) {
+  .grid-two-column {
+    grid-template-columns: 1fr 1fr;
+  }
 }
