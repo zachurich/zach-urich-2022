@@ -29,8 +29,8 @@ export function links() {
   return [{ rel: 'stylesheet', href: styles }];
 }
 
-export const meta: MetaFunction = () => {
-  return { title: 'Art - zachurich.com' };
+export const meta: MetaFunction = ({ data }) => {
+  return { title: 'Art - zachurich.com', description: data.content.intro };
 };
 
 export default function Drawings() {

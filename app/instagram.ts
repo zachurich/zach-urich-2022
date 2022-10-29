@@ -21,7 +21,7 @@ export type InstaResponse = {
 };
 
 const getDrawings = async (): Promise<InstaResponse[]> => {
-  const token = process.env.INSTA_ACCESS_TOKEN_1;
+  const token = process.env.INSTA_ACCESS_TOKEN_ART;
 
   const response = await fetch(
     `${mediaEndpointDrawings}&access_token=${token}`,
@@ -33,11 +33,13 @@ const getDrawings = async (): Promise<InstaResponse[]> => {
 };
 
 const getPhotos = async (): Promise<InstaResponse[]> => {
-  const token = process.env.INSTA_ACCESS_TOKEN_2;
+  const token = process.env.INSTA_ACCESS_TOKEN_PICS;
 
   const response = await fetch(`${mediaEndpointPhotos}&access_token=${token}`);
 
   const json = await response.json();
+
+  console.log(json);
 
   return json.data;
 };
