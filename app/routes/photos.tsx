@@ -30,7 +30,7 @@ export function links() {
 }
 
 export const meta: MetaFunction = ({ data }) => {
-  return { title: 'Photos - zachurich.com', description: data.content.intro };
+  return { title: 'Photos - zachurich.com', description: data?.content?.intro };
 };
 
 export default function Drawings() {
