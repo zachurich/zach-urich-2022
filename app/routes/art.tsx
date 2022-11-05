@@ -1,4 +1,4 @@
-import { MetaFunction } from 'remix';
+import { MetaFunction, redirect } from 'remix';
 
 import type { InstaResponse } from '~/instagram';
 import type { ArtPageContent } from '~/cms';
@@ -19,6 +19,11 @@ type Content = {
 export const loader: LoaderFunction = async (): Promise<Content> => {
   const drawings = await instagram.getDrawings();
   const content = await cms.getGridPageContent('art-page');
+
+  if (!drawings || !content) {
+    redirect('https://www.instagram.com/zacurich/');
+  }
+
   return {
     drawings,
     content,
@@ -30,7 +35,6 @@ export function links() {
 }
 
 export const meta: MetaFunction = ({ data }) => {
-  console.log('ZACH', data);
   return { title: 'Art - zachurich.com', description: data?.content?.intro };
 };
 

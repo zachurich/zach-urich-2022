@@ -39,8 +39,6 @@ const getPhotos = async (): Promise<InstaResponse[]> => {
 
   const json = await response.json();
 
-  console.log(json);
-
   return json.data;
 };
 
