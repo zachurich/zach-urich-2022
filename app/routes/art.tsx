@@ -12,8 +12,8 @@ import styles from '~/styles/grid.css';
 type Content = ArtPageContent;
 
 export const loader: LoaderFunction = async (): Promise<Content> => {
-  const content = await cms.getGridPageContent('art-page');
-  return content;
+  const cache = await cms.getGridPageContent('art-page');
+  return cache;
 };
 
 export function links() {

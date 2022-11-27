@@ -5,21 +5,36 @@ const connectionString = process.env.REDIS_CONNECTION_STRING ?? '';
 const redisClient = new Redis(connectionString);
 
 const withCache =
-  <Response>(fn: () => Promise<Response>, cacheKey: string, ttl = 86400) =>
-  async (): Promise<Response> => {
-    try {
-      const cache = await redisClient.get(cacheKey);
-      if (cache) return JSON.parse(cache);
-    } catch (err) {
-      console.log(`Error getting cache for ${cacheKey}`);
+  <Response, Args = unknown[]>(
+    fn: (...args: Args[]) => Promise<Response>,
+    cacheKey: string,
+    ttl = 86400,
+  ) =>
+  async (...args: Args[]): Promise<Response> => {
+    let dynamicCacheKey = cacheKey;
+    if (cacheKey.includes(':arg') && typeof args[0] === 'string') {
+      console.log(cacheKey, args[0]);
+      dynamicCacheKey = cacheKey.replace(':arg', args[0]);
     }
 
-    const response = await fn();
+    try {
+      const cache = await redisClient.get(dynamicCacheKey);
+      if (cache) return JSON.parse(cache);
+    } catch (err) {
+      console.log(`Error getting cache for ${dynamicCacheKey}`);
+    }
+
+    const response = await fn(...args);
 
     try {
-      await redisClient.set(cacheKey, JSON.stringify(response), 'EX', ttl);
+      await redisClient.set(
+        dynamicCacheKey,
+        JSON.stringify(response),
+        'EX',
+        ttl,
+      );
     } catch (err) {
-      console.log(`Error setting cache for ${cacheKey}`);
+      console.log(`Error setting cache for ${dynamicCacheKey}`);
     }
 
     return response;

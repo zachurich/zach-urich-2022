@@ -123,7 +123,7 @@ p {
 .site-header {
   display: flex;
   align-items: flex-start;
-  flex-direction: column;
+  flex-direction: row;
   margin: 2rem 0 4rem;
 }
 
@@ -141,7 +141,7 @@ p {
 .error-page {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
 }
 
 .navigation-items {
@@ -214,9 +214,9 @@ p {
     margin-bottom: 1rem;
   }
 
-  .site-header {
+  /* .site-header {
     flex-direction: row;
-  }
+  } */
 
   .primary-navigation,
   .error-page {

@@ -6,9 +6,7 @@ import { withCache } from './redis';
 
 const endpoint = prismic.getEndpoint('zachurichblog');
 
-const client = prismic.createClient(endpoint, {
-  fetch,
-});
+const client = prismic.createClient(endpoint);
 
 export type ExternalLink = {
   url: string;
@@ -106,8 +104,10 @@ const getHome = async (): Promise<HomePageContent> => {
   };
 };
 
+type GridPageType = 'art-page' | 'photos';
+
 const getGridPageContent = async (
-  pageSlug: 'art-page' | 'photos',
+  pageSlug: GridPageType,
 ): Promise<ArtPageContent> => {
   const data = await client.getAllByType('art');
 
@@ -141,5 +141,8 @@ export const cms = {
   getNavigation: withCache<NavItem[]>(getNavigation, 'cms_nav'),
   getPosts: withCache<Post[]>(getPosts, 'cms_posts'),
   getPost,
-  getGridPageContent,
+  getGridPageContent: withCache<ArtPageContent, GridPageType>(
+    getGridPageContent,
+    `cms_:arg`,
+  ),
 };
