@@ -47,6 +47,7 @@ export default function Index() {
             src={content.mePic}
             width={162}
             height={162}
+            randomized={false}
             alt="Zach Urich"
           />
           <div className="intro-text">

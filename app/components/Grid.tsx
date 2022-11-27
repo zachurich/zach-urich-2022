@@ -1,10 +1,15 @@
 import classNames from 'classnames';
+import { InstaResponse } from '../instagram';
 import { AnimatedImage } from './AnimatedImage';
 
 type Props<DataType> = {
   grid: DataType;
   columns?: number;
 };
+
+function isInstagramImage(item: any): item is InstaResponse {
+  return item?.media_type && item?.media_type === 'IMAGE';
+}
 
 export function Grid<GridData>({ grid, columns = 1 }: Props<GridData>) {
   if (!Array.isArray(grid)) return null;
@@ -16,7 +21,7 @@ export function Grid<GridData>({ grid, columns = 1 }: Props<GridData>) {
         })}
       >
         {grid.map((item) => {
-          if (item.media_type === 'IMAGE') {
+          if (isInstagramImage(item)) {
             return (
               <li className="grid-item" key={item.id}>
                 <a href={item.permalink} target="_blank" rel="noreferrer">
@@ -26,6 +31,18 @@ export function Grid<GridData>({ grid, columns = 1 }: Props<GridData>) {
                     loading="lazy"
                   />
                 </a>
+              </li>
+            );
+          } else {
+            return (
+              <li className="grid-item" key={item.title}>
+                <AnimatedImage
+                  src={item.url}
+                  alt={`${item.title}`}
+                  loading="lazy"
+                >
+                  <small>{item.title}</small>
+                </AnimatedImage>
               </li>
             );
           }

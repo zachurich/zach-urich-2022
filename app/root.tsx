@@ -161,6 +161,10 @@ export function CatchBoundary() {
     errorMsg = 'page not found';
   }
 
+  if (process.env.NODE_ENV === 'development') {
+    console.log(caught);
+  }
+
   return (
     <Document>
       <div className="site-wrapper error-page">
@@ -178,6 +182,12 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary() {
+  const caught = useCatch();
+
+  if (process.env.NODE_ENV === 'development') {
+    console.log(caught);
+  }
+
   return (
     <Document>
       <div className="site-wrapper error-page">

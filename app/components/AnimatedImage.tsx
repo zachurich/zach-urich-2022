@@ -1,5 +1,5 @@
 import { useSpring, animated, config } from '@react-spring/web';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 
 const placeholderSrc = '/placeholder.png';
 
@@ -10,12 +10,31 @@ type Props = {
   loading?: HTMLImageElement['loading'];
   width?: number;
   height?: number;
+  randomized?: boolean;
+  children?: ReactNode | ReactNode[];
 };
 
-export const AnimatedImage = ({ src, ...rest }: Props) => {
+const randomInt = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min) + min);
+
+export const AnimatedImage = ({
+  src,
+  children,
+  randomized = true,
+  ...rest
+}: Props) => {
+  const offsetImage = 500 + (randomized ? randomInt(0, 500) : 0);
+  const offsetChildren = 700 + (randomized ? randomInt(0, 500) : 0);
+
   const [styles, animation] = useSpring(() => ({
     opacity: 0,
     y: -2,
+    config: config.gentle,
+  }));
+
+  const [childStyles, childAnimation] = useSpring(() => ({
+    opacity: 0,
+    x: 10,
     config: config.gentle,
   }));
 
@@ -30,14 +49,31 @@ export const AnimatedImage = ({ src, ...rest }: Props) => {
   }, [src]);
 
   useEffect(() => {
-    setTimeout(async () => {
-      await animation.start({ opacity: 1, y: 1 });
-    }, 500);
-  }, [loadedSrc, animation]);
+    if (loadedSrc) {
+      setTimeout(async () => {
+        await animation.start({ opacity: 1, y: 0 });
+      }, offsetImage);
+
+      setTimeout(async () => {
+        await childAnimation.start({ opacity: 1, x: 0 });
+      }, offsetChildren);
+    }
+  }, [loadedSrc, animation, childAnimation]);
 
   if (!loadedSrc) {
     return <img src={placeholderSrc} {...rest} />;
   }
 
-  return <animated.img src={loadedSrc} {...rest} style={styles} />;
+  const image = <animated.img src={loadedSrc} {...rest} style={styles} />;
+
+  if (children) {
+    return (
+      <>
+        {image}
+        <animated.div style={childStyles}>{children}</animated.div>
+      </>
+    );
+  }
+
+  return image;
 };

@@ -1,33 +1,19 @@
-import { MetaFunction, redirect } from 'remix';
+import { MetaFunction } from 'remix';
 
-import type { InstaResponse } from '~/instagram';
-import type { ArtPageContent } from '~/cms';
+import type { ArtPageContent, GridImage } from '~/cms';
 
 import { LoaderFunction, useLoaderData } from 'remix';
-import { instagram } from '~/instagram';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { Grid } from '../components/Grid';
 
 import styles from '~/styles/grid.css';
 
-type Content = {
-  drawings: InstaResponse[];
-  content: ArtPageContent;
-};
+type Content = ArtPageContent;
 
 export const loader: LoaderFunction = async (): Promise<Content> => {
-  const drawings = await instagram.getDrawings();
   const content = await cms.getGridPageContent('art-page');
-
-  if (!drawings || !content) {
-    redirect('https://www.instagram.com/zacurich/');
-  }
-
-  return {
-    drawings,
-    content,
-  };
+  return content;
 };
 
 export function links() {
@@ -39,7 +25,9 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export default function Drawings() {
-  const { drawings, content } = useLoaderData<Content>();
+  const content = useLoaderData<Content>();
+
+  const drawings = content.images;
 
   if (!drawings) return null;
 
@@ -50,7 +38,7 @@ export default function Drawings() {
         <h1 id="page-header">{content.header}</h1>
         <p>{content.intro}</p>
       </section>
-      <Grid<InstaResponse[]> grid={drawings} columns={2} />
+      <Grid<GridImage[]> grid={drawings} columns={2} />
       <a
         className="bottom-link"
         href={content.moreLink.url}

@@ -1,7 +1,6 @@
 import { MetaFunction, redirect } from 'remix';
 
-import type { InstaResponse } from '~/instagram';
-import type { ArtPageContent } from '~/cms';
+import type { ArtPageContent, GridImage } from '~/cms';
 
 import { LoaderFunction, useLoaderData } from 'remix';
 import { instagram } from '~/instagram';
@@ -11,23 +10,11 @@ import { Grid } from '../components/Grid';
 
 import styles from '~/styles/grid.css';
 
-type Content = {
-  photos: InstaResponse[];
-  content: ArtPageContent;
-};
+type Content = ArtPageContent;
 
 export const loader: LoaderFunction = async (): Promise<Content> => {
-  const photos = await instagram.getPhotos();
   const content = await cms.getGridPageContent('photos');
-
-  if (!photos || !content) {
-    redirect('https://www.instagram.com/zachurich/');
-  }
-
-  return {
-    photos,
-    content,
-  };
+  return content;
 };
 
 export function links() {
@@ -39,7 +26,9 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export default function Drawings() {
-  const { photos, content } = useLoaderData<Content>();
+  const content = useLoaderData<Content>();
+
+  const photos = content.images;
 
   if (!photos) return null;
 
@@ -50,7 +39,7 @@ export default function Drawings() {
         <h1 id="page-header">{content.header}</h1>
         <p>{content.intro}</p>
       </section>
-      <Grid<InstaResponse[]> grid={photos} />
+      <Grid<GridImage[]> grid={photos} columns={2} />
       <a
         className="bottom-link"
         href={content.moreLink.url}

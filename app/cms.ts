@@ -28,6 +28,19 @@ export type Post = {
   date: string;
 };
 
+export type ImageDetails = {
+  dimensions: Array<any>;
+  alt: null;
+  copyright: null;
+  url: string;
+};
+
+export type GridImage = {
+  url: string;
+  title: string;
+  description: [RTNode, ...RTNode[]];
+};
+
 export type PostContent = {
   title: string;
   content: [RTNode, ...RTNode[]];
@@ -45,6 +58,7 @@ export type ArtPageContent = {
   header: string;
   intro: string;
   moreLink: ExternalLink;
+  images: GridImage[];
 };
 
 const getNavigation = async (): Promise<NavItem[] | []> => {
@@ -104,6 +118,11 @@ const getGridPageContent = async (
     header: fields.header[0].text,
     intro: fields.intro[0].text,
     moreLink: fields.more_link,
+    images: fields.images?.map((data: any) => ({
+      url: data.image.url,
+      title: data.title[0].text,
+      description: data.description,
+    })),
   };
 };
 
