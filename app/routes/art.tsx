@@ -1,9 +1,8 @@
-import type { MetaFunction } from 'remix';
+import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 import type { ArtPageContent, GridImage } from '~/cms';
 
-import type { LoaderFunction} from 'remix';
-import { useLoaderData } from 'remix';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { Grid } from '../components/Grid';

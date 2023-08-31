@@ -1,7 +1,7 @@
-import type { MetaFunction } from 'remix';
-import type { HomePageContent, Post } from '~/cms';
+import { type MetaFunction } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
 
-import { Link, useLoaderData } from 'remix';
+import type { HomePageContent, Post } from '~/cms';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 

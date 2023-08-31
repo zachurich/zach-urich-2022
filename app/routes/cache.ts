@@ -1,6 +1,4 @@
-import type { ActionFunction } from 'remix';
-
-import { json } from 'remix';
+import { type ActionFunction, json } from "@remix-run/node";
 import { redisClient } from '../redis';
 
 export const action: ActionFunction = async ({

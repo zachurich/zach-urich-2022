@@ -1,20 +1,21 @@
 import type { ReactNode} from 'react';
 import { useEffect, useRef, useState } from 'react';
-import type { MetaFunction, LinksFunction} from 'remix';
-import { useCatch } from 'remix';
-import type { NavItem } from './cms';
+import { type LinksFunction, type MetaFunction } from "@remix-run/node";
 
 import {
-  Links,
   Link,
+  Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
   useLoaderData,
   useLocation,
-} from 'remix';
+} from "@remix-run/react";
+
+import type { NavItem } from './cms';
 
 import classNames from 'classnames';
 
