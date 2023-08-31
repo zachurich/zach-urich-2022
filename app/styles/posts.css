@@ -1,5 +1,18 @@
-.post-date {
-  display: block;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
+.post img {
+  max-width: 100%;
+}
+
+.post h1 {
+  margin-bottom: 1rem;
+}
+.post h2 {
+  margin-bottom: 0.875rem;
+}
+
+.post h3 {
+  margin-bottom: 0.5rem;
+}
+
+.post h4 {
+  margin-bottom: 0.25rem;
 }
