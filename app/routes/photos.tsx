@@ -1,8 +1,10 @@
-import { MetaFunction, redirect } from 'remix';
+import type { MetaFunction} from 'remix';
+import { redirect } from 'remix';
 
 import type { ArtPageContent, GridImage } from '~/cms';
 
-import { LoaderFunction, useLoaderData } from 'remix';
+import type { LoaderFunction} from 'remix';
+import { useLoaderData } from 'remix';
 import { instagram } from '~/instagram';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';

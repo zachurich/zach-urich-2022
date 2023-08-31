@@ -1,7 +1,9 @@
-import { Link, MetaFunction } from 'remix';
+import type { MetaFunction } from 'remix';
+import { Link } from 'remix';
 import type { PostContent } from '~/cms';
 
-import { LoaderFunction, useLoaderData } from 'remix';
+import type { LoaderFunction} from 'remix';
+import { useLoaderData } from 'remix';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { RenderContent } from '~/components/Cms';

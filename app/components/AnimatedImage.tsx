@@ -1,5 +1,6 @@
 import { useSpring, animated, config } from '@react-spring/web';
-import { ReactNode, useEffect, useState } from 'react';
+import type { ReactNode} from 'react';
+import { useEffect, useState } from 'react';
 
 const placeholderSrc = '/placeholder.png';
 

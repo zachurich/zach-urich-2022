@@ -2,9 +2,9 @@
   "plugins": ["react-hooks"],
   "parser": "@typescript-eslint/parser",
   "extends": [
-    "eslint:recommended", 
-    "plugin:react/recommended", 
-    "prettier", 
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
@@ -13,11 +13,8 @@
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "no-control-regex": 0,
-    "no-unused-vars": "warn"
-  },
-  "ecmaFeatures": {
-    "globalReturn": false,
-    "jsx": true
+    "no-unused-vars": "warn",
+    "@typescript-eslint/consistent-type-imports": "error"
   },
   "globals": {
     "React": "writable"
@@ -28,5 +25,10 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

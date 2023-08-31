@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { InstaResponse } from '../instagram';
+import type { InstaResponse } from '../instagram';
 import { AnimatedImage } from './AnimatedImage';
 
 type Props<DataType> = {

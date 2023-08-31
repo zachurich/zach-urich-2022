@@ -1,5 +1,7 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import { MetaFunction, LinksFunction, useCatch } from 'remix';
+import type { ReactNode} from 'react';
+import { useEffect, useRef, useState } from 'react';
+import type { MetaFunction, LinksFunction} from 'remix';
+import { useCatch } from 'remix';
 import type { NavItem } from './cms';
 
 import {
@@ -16,9 +18,10 @@ import {
 
 import classNames from 'classnames';
 
+import type {
+  AnimationStateType} from '~/animation';
 import {
   AnimationContext,
-  AnimationStateType,
   initialAnimationState,
 } from '~/animation';
 import { cms } from '~/cms';
