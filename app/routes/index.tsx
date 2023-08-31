@@ -77,7 +77,7 @@ export default function Index() {
           </ul>
         </article>
         <article>
-          <h2 id={content.sectionHeader.toLowerCase()}>🔗 Links</h2>
+          <h2 id={content.sectionHeader.toLowerCase()}>🔗 links</h2>
           <ul className="posts">
             {socialLinks.map((link) => (
               <li key={link.uri}>
