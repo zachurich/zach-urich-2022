@@ -26,6 +26,11 @@ export type Post = {
   date: string;
 };
 
+export type SocialLink = {
+  linkName: string;
+  uri: string;
+};
+
 export type ImageDetails = {
   dimensions: Array<any>;
   alt: null;
@@ -93,6 +98,20 @@ const getPosts = async (): Promise<Post[]> => {
   });
 };
 
+const getLinks = async (): Promise<SocialLink[]> => {
+  const data = await client.getByType('links', {
+    orderings: {
+      field: 'document.first_publication_date',
+      direction: 'desc',
+    },
+  });
+
+  return data?.results?.[0]?.data?.links?.map((link) => ({
+    linkName: link.link_name[0].text,
+    uri: link.uri.url,
+  }));
+};
+
 const getHome = async (): Promise<HomePageContent> => {
   const data = await client.getByType('home_page');
   const fields = data.results[0].data;
@@ -140,6 +159,7 @@ export const cms = {
   getHome: withCache<HomePageContent>(getHome, 'cms_home'),
   getNavigation: withCache<NavItem[]>(getNavigation, 'cms_nav'),
   getPosts: withCache<Post[]>(getPosts, 'cms_posts'),
+  getLinks: getLinks,
   getPost,
   getGridPageContent: withCache<ArtPageContent, GridPageType>(
     getGridPageContent,

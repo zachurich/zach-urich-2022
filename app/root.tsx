@@ -1,6 +1,6 @@
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { type LinksFunction, type MetaFunction } from "@remix-run/node";
+import { type LinksFunction, type MetaFunction } from '@remix-run/node';
 
 import {
   Link,
@@ -13,18 +13,14 @@ import {
   useCatch,
   useLoaderData,
   useLocation,
-} from "@remix-run/react";
+} from '@remix-run/react';
 
 import type { NavItem } from './cms';
 
 import classNames from 'classnames';
 
-import type {
-  AnimationStateType} from '~/animation';
-import {
-  AnimationContext,
-  initialAnimationState,
-} from '~/animation';
+import type { AnimationStateType } from '~/animation';
+import { AnimationContext, initialAnimationState } from '~/animation';
 import { cms } from '~/cms';
 
 import styles from '~/styles/global.css';

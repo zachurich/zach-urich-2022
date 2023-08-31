@@ -1,7 +1,7 @@
-import { type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { type MetaFunction } from '@remix-run/node';
+import { Link, useLoaderData } from '@remix-run/react';
 
-import type { HomePageContent, Post } from '~/cms';
+import type { HomePageContent, SocialLink, Post } from '~/cms';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 
@@ -11,15 +11,18 @@ import { AnimatedImage } from '../components/AnimatedImage';
 type Content = {
   posts: Post[];
   content: HomePageContent;
+  links: SocialLink[];
 };
 
 export const loader = async (): Promise<Content> => {
   const posts = await cms.getPosts();
   const content = await cms.getHome();
+  const links = await cms.getLinks();
 
   return {
     posts,
     content,
+    links,
   };
 };
 
@@ -35,7 +38,7 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export default function Index() {
-  const { posts, content } = useLoaderData<Content>();
+  const { posts, content, links: socialLinks } = useLoaderData<Content>();
 
   return (
     <>
@@ -57,7 +60,7 @@ export default function Index() {
         </section>
         <article>
           <h2 id={content.sectionHeader.toLowerCase()}>
-            {content.sectionHeader}
+            💭 {content.sectionHeader}
           </h2>
           <ul className="posts">
             {posts.map((post) => {
@@ -71,6 +74,18 @@ export default function Index() {
                 </li>
               );
             })}
+          </ul>
+        </article>
+        <article>
+          <h2 id={content.sectionHeader.toLowerCase()}>🔗 Links</h2>
+          <ul className="posts">
+            {socialLinks.map((link) => (
+              <li key={link.uri}>
+                <a target="_blank" rel="noopener noreferrer" href={link.uri}>
+                  {link.linkName}
+                </a>
+              </li>
+            ))}
           </ul>
         </article>
       </div>
