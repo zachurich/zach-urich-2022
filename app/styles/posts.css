@@ -16,3 +16,9 @@
 .post h4 {
   margin-bottom: 0.25rem;
 }
+
+.post-date {
+  display: block;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
