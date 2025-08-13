@@ -28,19 +28,9 @@ export default function Drawings() {
   const content = {
     header: 'Code',
     intro: 'A collection of code snippets and projects.',
-    moreLink: { url: '/code', target: '_self' },
-    images: [
-      {
-        url: 'https://example.com/image1.jpg',
-        title: 'Code Snippet 1',
-        description: 'Description of code snippet 1',
-      },
-    ],
   };
 
-  const drawings = content.images;
-
-  if (!drawings) return null;
+  if (!repos) return null;
 
   return (
     <>
