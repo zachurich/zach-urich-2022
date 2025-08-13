@@ -70,13 +70,6 @@ export default function Drawings() {
           );
         })}
       </div>
-      <a
-        className="bottom-link"
-        href={content.moreLink.url}
-        target={content.moreLink.target}
-      >
-        See more
-      </a>
     </>
   );
 }
