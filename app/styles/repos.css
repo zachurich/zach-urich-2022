@@ -1,0 +1,30 @@
+.repo-list {
+  margin-top: 2rem;
+}
+
+.repo-card h2 {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.repo-card p {
+  margin-bottom: 0;
+}
+
+.repo-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.repo-date {
+  display: block;
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.repo-description {
+  max-width: 80%;
+}

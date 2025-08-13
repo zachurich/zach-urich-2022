@@ -65,7 +65,7 @@ export default function Index() {
           <ul className="posts">
             {posts.map((post) => {
               return (
-                <li key={post.link} className="post">
+                <li key={post.link} className="post card">
                   <Link to={post.link}>
                     <span className="post-title">{post.title}</span>
                     <br></br>
@@ -78,7 +78,7 @@ export default function Index() {
         </article>
         <article>
           <h2 id={content.sectionHeader.toLowerCase()}>🔗 links</h2>
-          <ul className="posts">
+          <ul className="card">
             {socialLinks.map((link) => (
               <li key={link.uri}>
                 <a target="_blank" rel="noopener noreferrer" href={link.uri}>

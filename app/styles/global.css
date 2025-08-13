@@ -1,5 +1,6 @@
 :root {
   --background-color: #000000;
+  --background-transparent: rgba(255, 255, 255, 0.05);
   --primary-color: #6691ff;
   --secondary-color: #ffe247;
   --text-color: #eeeeee;
@@ -73,7 +74,7 @@ pre {
   padding: 0.8rem 1rem;
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  color: var(--secondary-color);
+  color: var(--primary-color);
   overflow-x: auto;
 }
 
@@ -249,4 +250,15 @@ p {
   .navigation-item:first-of-type {
     margin-left: 0.8rem;
   }
+}
+
+.card {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-transparent);
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  box-shadow: var(--shadow);
+  list-style-type: none;
 }

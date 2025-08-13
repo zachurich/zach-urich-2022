@@ -32,11 +32,6 @@
   margin-bottom: 0;
 }
 
-.post {
-  text-transform: lowercase;
-  margin-bottom: 2rem;
-}
-
 .post a {
   text-decoration: none;
 }
@@ -50,6 +45,8 @@
   font-size: 0.9rem;
   font-weight: var(--weight-reg);
   text-decoration: none;
+  margin-top: 0.5rem;
+  display: block;
 }
 
 @media screen and (min-width: 700px) {

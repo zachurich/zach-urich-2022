@@ -123,7 +123,7 @@ const getHome = async (): Promise<HomePageContent> => {
   };
 };
 
-type GridPageType = 'art-page' | 'photos';
+type GridPageType = 'art-page' | 'photos' | 'code';
 
 const getGridPageContent = async (
   pageSlug: GridPageType,
