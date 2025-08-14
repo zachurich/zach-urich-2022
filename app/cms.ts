@@ -32,7 +32,7 @@ export type SocialLink = {
 };
 
 export type ImageDetails = {
-  dimensions: Array<any>;
+  dimensions: Array<unknown>;
   alt: null;
   copyright: null;
   url: string;
@@ -57,7 +57,7 @@ export type HomePageContent = {
   sectionHeader: string;
 };
 
-export type ArtPageContent = {
+export type PageContent = {
   header: string;
   intro: string;
   moreLink: ExternalLink;
@@ -127,19 +127,22 @@ type GridPageType = 'art-page' | 'photos' | 'code';
 
 const getGridPageContent = async (
   pageSlug: GridPageType,
-): Promise<ArtPageContent> => {
+): Promise<PageContent> => {
   const data = await client.getAllByType('art');
 
   const fields =
     data?.find((page) => page?.slugs?.includes(pageSlug))?.data ?? data[0].data;
 
+  console.log(fields);
+
   return {
     header: fields.header[0].text,
     intro: fields.intro[0].text,
     moreLink: fields.more_link,
-    images: fields.images?.map((data: any) => ({
-      url: data.image.url,
-      title: data.title[0].text,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    images: fields?.images?.map((data: any) => ({
+      url: data?.image?.url,
+      title: data?.title?.[0]?.text,
       description: data.description,
     })),
   };
@@ -161,7 +164,7 @@ export const cms = {
   getPosts: withCache<Post[]>(getPosts, 'cms_posts'),
   getLinks: getLinks,
   getPost,
-  getGridPageContent: withCache<ArtPageContent, GridPageType>(
+  getGridPageContent: withCache<PageContent, GridPageType>(
     getGridPageContent,
     `cms_:arg`,
   ),

@@ -1,4 +1,4 @@
-import { type ActionFunction, json } from "@remix-run/node";
+import { type ActionFunction, json } from '@remix-run/node';
 import { redisClient } from '../redis';
 
 export const action: ActionFunction = async ({
@@ -7,12 +7,13 @@ export const action: ActionFunction = async ({
   request: Request;
 }) => {
   try {
-    const body = await request.json();
+    const headers = request.headers;
 
-    if (
-      request.method === 'DELETE' &&
-      body.password === process.env.CACHE_PASS
-    ) {
+    if (headers.get('X-Password') !== process.env.CACHE_PASS) {
+      throw Error('nice try.');
+    }
+
+    if (request.method === 'POST') {
       const response = await redisClient.flushall();
       if (response !== 'OK') throw Error('redis error');
 

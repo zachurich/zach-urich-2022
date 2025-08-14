@@ -1,18 +1,26 @@
 import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
-import type { ArtPageContent, GridImage } from '~/cms';
-
 import { Shape1 } from '~/svgs';
 import { github, GithubRepo } from '~/github';
 
 import styles from '~/styles/repos.css';
 import { dateFromString } from '../dates';
+import { cms, PageContent } from '../cms';
 
-export const loader: LoaderFunction = async (): Promise<GithubRepo[]> => {
-  const repos = await github.fetchRepos();
+type LoaderType = {
+  content: PageContent;
+  repos: GithubRepo[];
+};
 
-  return repos ?? [];
+export const loader: LoaderFunction = async (): Promise<LoaderType> => {
+  const repos = (await github.fetchRepos()) ?? [];
+  const content = await cms.getGridPageContent('code');
+
+  return {
+    content,
+    repos,
+  };
 };
 
 export function links() {
@@ -20,15 +28,11 @@ export function links() {
 }
 
 export const meta: MetaFunction = ({ data }) => {
-  return { title: 'Art - zachurich.com', description: data?.content?.intro };
+  return { title: 'Code - zachurich.com', description: data?.content?.intro };
 };
 
 export default function Drawings() {
-  const repos = useLoaderData<GithubRepo[]>();
-  const content = {
-    header: 'Code',
-    intro: 'A collection of code snippets and projects.',
-  };
+  const { content, repos } = useLoaderData<LoaderType>();
 
   if (!repos) return null;
 

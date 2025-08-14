@@ -1,18 +1,15 @@
-import { type LoaderFunction, type MetaFunction, redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
 
-import type { ArtPageContent, GridImage } from '~/cms';
+import type { PageContent, GridImage } from '~/cms';
 
-import { instagram } from '~/instagram';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { Grid } from '../components/Grid';
 
 import styles from '~/styles/grid.css';
 
-type Content = ArtPageContent;
-
-export const loader: LoaderFunction = async (): Promise<Content> => {
+export const loader: LoaderFunction = async (): Promise<PageContent> => {
   const content = await cms.getGridPageContent('photos');
   return content;
 };
@@ -26,7 +23,7 @@ export const meta: MetaFunction = ({ data }) => {
 };
 
 export default function Drawings() {
-  const content = useLoaderData<Content>();
+  const content = useLoaderData<PageContent>();
 
   const photos = content.images;
 

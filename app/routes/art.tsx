@@ -1,7 +1,7 @@
-import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
 
-import type { ArtPageContent, GridImage } from '~/cms';
+import type { PageContent, GridImage } from '~/cms';
 
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
@@ -9,7 +9,7 @@ import { Grid } from '../components/Grid';
 
 import styles from '~/styles/grid.css';
 
-type Content = ArtPageContent;
+type Content = PageContent;
 
 export const loader: LoaderFunction = async (): Promise<Content> => {
   const cache = await cms.getGridPageContent('art-page');
