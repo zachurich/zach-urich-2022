@@ -50,6 +50,7 @@ export default function Drawings() {
               <div className="repo-title">
                 <h2>
                   <a href={repo.html_url} target="_blank" rel="noreferrer">
+                    {repo.fork ? ' Fork: ' : ''}
                     {repo.name}
                   </a>
                 </h2>
@@ -60,6 +61,9 @@ export default function Drawings() {
               <div className="repo-description">
                 {repo.description ?? 'No description 😅'}
               </div>
+              {!repo.language ? null : (
+                <div className="repo-language pill">{repo.language}</div>
+              )}
             </article>
           );
         })}

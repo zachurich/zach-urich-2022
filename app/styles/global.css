@@ -262,3 +262,15 @@ p {
   box-shadow: var(--shadow);
   list-style-type: none;
 }
+
+.pill {
+  display: block;
+  padding: 0.2rem 0.6rem;
+  border: 2px solid var(--background-transparent);
+  background-color: var(--background-transparent);
+  color: var(--text-color);
+  border-radius: 0.15rem;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  font-weight: var(--weight-bold);
+}

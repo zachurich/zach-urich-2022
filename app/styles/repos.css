@@ -2,6 +2,10 @@
   margin-top: 2rem;
 }
 
+.repo-card {
+  position: relative;
+}
+
 .repo-card h2 {
   font-size: 1rem;
   margin-bottom: 0;
@@ -21,10 +25,18 @@
 .repo-date {
   display: block;
   margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
   font-size: 0.85rem;
   font-style: italic;
 }
 
 .repo-description {
   max-width: 80%;
+  font-size: 0.88rem;
+}
+
+.repo-language {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.5rem;
 }
