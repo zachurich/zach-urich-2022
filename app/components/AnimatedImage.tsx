@@ -1,5 +1,5 @@
 import { useSpring, animated, config } from '@react-spring/web';
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react';
 import { useEffect, useState } from 'react';
 
 const placeholderSrc = '/placeholder.png';
@@ -27,17 +27,23 @@ export const AnimatedImage = ({
   const offsetImage = 500 + (randomized ? randomInt(0, 500) : 0);
   const offsetChildren = 700 + (randomized ? randomInt(0, 500) : 0);
 
-  const [styles, animation] = useSpring(() => ({
-    opacity: 0,
-    y: -2,
-    config: config.gentle,
-  }));
+  const [styles, animation] = useSpring(
+    () => ({
+      opacity: 0,
+      y: -2,
+      config: config.gentle,
+    }),
+    [],
+  );
 
-  const [childStyles, childAnimation] = useSpring(() => ({
-    opacity: 0,
-    x: 10,
-    config: config.gentle,
-  }));
+  const [childStyles, childAnimation] = useSpring(
+    () => ({
+      opacity: 0,
+      x: 10,
+      config: config.gentle,
+    }),
+    [],
+  );
 
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
 

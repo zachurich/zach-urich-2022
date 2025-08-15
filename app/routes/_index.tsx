@@ -5,8 +5,9 @@ import type { HomePageContent, SocialLink, Post } from '~/cms';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 
-import styles from '~/styles/home.css';
 import { AnimatedImage } from '../components/AnimatedImage';
+
+import '~/styles/home.css';
 
 type Content = {
   posts: Post[];
@@ -26,15 +27,17 @@ export const loader = async (): Promise<Content> => {
   };
 };
 
-export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
-}
+// export function links() {
+//   return [];
+// }
 
 export const meta: MetaFunction = ({ data }) => {
-  return {
-    title: 'Zach Urich',
-    description: `${data.content.header}. ${data.content.intro}`,
-  };
+  return [
+    {
+      title: 'Zach Urich',
+      // description: `${data.content.header}. ${data.content.intro}`,
+    },
+  ];
 };
 
 export default function Index() {

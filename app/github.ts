@@ -1,5 +1,3 @@
-import { a } from '@react-spring/web';
-
 export type GithubRepo = {
   id: number;
   node_id: string;

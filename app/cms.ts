@@ -4,7 +4,7 @@ import { dateFromString } from '~/dates';
 import type { RTNode } from '@prismicio/types';
 import { withCache } from './redis';
 
-const endpoint = prismic.getEndpoint('zachurichblog');
+const endpoint = prismic.getRepositoryEndpoint('zachurichblog');
 
 const client = prismic.createClient(endpoint);
 
@@ -106,7 +106,7 @@ const getLinks = async (): Promise<SocialLink[]> => {
     },
   });
 
-  return data?.results?.[0]?.data?.links?.map((link) => ({
+  return data?.results?.[0]?.data?.links?.map((link: any) => ({
     linkName: link.link_name[0].text,
     uri: link.uri.url,
   }));
@@ -132,8 +132,6 @@ const getGridPageContent = async (
 
   const fields =
     data?.find((page) => page?.slugs?.includes(pageSlug))?.data ?? data[0].data;
-
-  console.log(fields);
 
   return {
     header: fields.header[0].text,

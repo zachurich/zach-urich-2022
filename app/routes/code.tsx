@@ -4,7 +4,7 @@ import { useLoaderData } from '@remix-run/react';
 import { Shape1 } from '~/svgs';
 import { github, GithubRepo } from '~/github';
 
-import styles from '~/styles/repos.css';
+import '~/styles/repos.css';
 import { dateFromString } from '../dates';
 import { cms, PageContent } from '../cms';
 
@@ -23,12 +23,13 @@ export const loader: LoaderFunction = async (): Promise<LoaderType> => {
   };
 };
 
-export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
-}
+// export function links() {
+//   return [];
+// }
 
 export const meta: MetaFunction = ({ data }) => {
-  return { title: 'Code - zachurich.com', description: data?.content?.intro };
+  // @ts-expect-error
+  return [{ title: 'Code - zachurich.com', description: data?.content?.intro }];
 };
 
 export default function Drawings() {

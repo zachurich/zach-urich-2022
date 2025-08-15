@@ -13,7 +13,6 @@ const withCache =
   async (...args: Args[]): Promise<Response> => {
     let dynamicCacheKey = cacheKey;
     if (cacheKey.includes(':arg') && typeof args[0] === 'string') {
-      console.log(cacheKey, args[0]);
       dynamicCacheKey = cacheKey.replace(':arg', args[0]);
     }
 

@@ -1,12 +1,12 @@
-import { type LoaderFunction, type MetaFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
+import { Link, useLoaderData } from '@remix-run/react';
 import type { PostContent } from '~/cms';
 
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { RenderContent } from '~/components/Cms';
 
-import styles from '~/styles/posts.css';
+import '~/styles/posts.css';
 
 type Content = {
   post: PostContent;
@@ -26,15 +26,17 @@ export const loader: LoaderFunction = async ({
   return null;
 };
 
-export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
-}
+// export function links() {
+//   return [];
+// }
 
-export const meta: MetaFunction = ({ data }: { data: Content }) => {
-  return {
-    title: `${data.post.title} - zachurich.com`,
-    description: data.post.date,
-  };
+export const meta = ({ data }: { data: Content }) => {
+  return [
+    {
+      title: `${data.post.title} - zachurich.com`,
+      description: data.post.date,
+    },
+  ];
 };
 
 export default function Post() {

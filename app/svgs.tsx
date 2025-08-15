@@ -1,6 +1,6 @@
 import { useSpring, animated } from '@react-spring/web';
 import { useContext, useEffect } from 'react';
-import { AnimationContext, colors } from '~/animation';
+import { AnimationContext, colors } from './animation';
 
 export function Shape1() {
   const animationContext = useContext(AnimationContext);
@@ -38,8 +38,8 @@ export function Shape1() {
   return (
     <div className="shape" aria-hidden="true">
       <svg
-        width="416"
-        height="254"
+        width="1000"
+        height="1000"
         viewBox="0 0 416 254"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

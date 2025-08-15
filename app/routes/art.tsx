@@ -7,7 +7,7 @@ import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { Grid } from '../components/Grid';
 
-import styles from '~/styles/grid.css';
+import '~/styles/grid.css';
 
 type Content = PageContent;
 
@@ -16,12 +16,12 @@ export const loader: LoaderFunction = async (): Promise<Content> => {
   return cache;
 };
 
-export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
-}
+// export function links() {
+//   return [];
+// }
 
-export const meta: MetaFunction = ({ data }) => {
-  return { title: 'Art - zachurich.com', description: data?.content?.intro };
+export const meta = ({ data }: { data: any }) => {
+  return [{ title: 'Art - zachurich.com', description: data?.content?.intro }];
 };
 
 export default function Drawings() {

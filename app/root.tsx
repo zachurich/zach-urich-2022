@@ -10,20 +10,21 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch,
+  useRouteError,
   useLoaderData,
   useLocation,
+  isRouteErrorResponse,
 } from '@remix-run/react';
 
 import type { NavItem } from './cms';
 
 import classNames from 'classnames';
 
-import type { AnimationStateType } from '~/animation';
-import { AnimationContext, initialAnimationState } from '~/animation';
+import type { AnimationStateType } from './animation';
+import { AnimationContext, initialAnimationState } from './animation';
 import { cms } from '~/cms';
 
-import styles from '~/styles/global.css';
+import '~/styles/global.css';
 
 type Content = {
   navigation: NavItem[];
@@ -39,10 +40,10 @@ export const loader = async (): Promise<Content> => {
 
 export const links: LinksFunction = () => {
   return [
-    {
-      rel: 'stylesheet',
-      href: styles,
-    },
+    // {
+    //   rel: 'stylesheet',
+    //   href: styles,
+    // },
     {
       rel: 'preconnect',
       href: 'https://fonts.googleapis.com',
@@ -56,7 +57,7 @@ export const links: LinksFunction = () => {
 };
 
 export const meta: MetaFunction = () => {
-  return { title: 'zachurich.com' };
+  return [{ title: 'zachurich.com' }];
 };
 
 function Header({ data }: { data: NavItem[] }) {
@@ -148,16 +149,15 @@ function Document({ children }: { children: ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
   );
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useRouteError();
   let errorMsg = 'something went very wrong';
-  if (caught.status === 404) {
+  if (isRouteErrorResponse(caught) && caught.status === 404) {
     errorMsg = 'page not found';
   }
 
@@ -182,7 +182,7 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary() {
-  const caught = useCatch();
+  const caught = useRouteError();
 
   if (process.env.NODE_ENV === 'development') {
     console.log(caught);
