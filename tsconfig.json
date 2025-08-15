@@ -17,6 +17,7 @@
     "paths": {
       "~/*": ["./app/*"]
     },
+    "types": ["@remix-run/node", "vite/client"],
     // Vite takes care of building everything, not tsc.
     "noEmit": true
   }
