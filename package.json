@@ -1,5 +1,6 @@
 {
-  "name": "my-react-router-app",
+  "name": "zach-urich-2022",
+  "version": "1.0.0",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -42,6 +43,6 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.10.0"
   }
 }
