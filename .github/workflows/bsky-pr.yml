@@ -6,7 +6,7 @@ on:
       - master
 jobs:
   call-workflow-passing-data:
-    uses: zachurich/gh-actions/blob/main/.github/workflows/pr-bluesky.yml@main
+    uses: zachurich/gh-actions/.github/workflows/pr-bluesky.yml@main
     with:
       post: "Hello world"
     secrets:
