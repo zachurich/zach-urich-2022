@@ -1,6 +1,7 @@
 name: Post to Bluesky
 on:
   pull_request:
+    types: [opened]
     branches:
       - main
       - master
@@ -8,5 +9,5 @@ jobs:
   call-workflow-passing-data:
     uses: zachurich/gh-actions/.github/workflows/pr-bluesky.yml@main
     with:
-      post: "Hello world"
+      post: "${{ github.event.pull_request.title }} - ${{ github.event.pull_request.url }}"
     secrets: inherit
