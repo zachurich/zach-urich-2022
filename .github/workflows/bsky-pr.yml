@@ -9,5 +9,3 @@ jobs:
     uses: zachurich/gh-actions/.github/workflows/pr-bluesky.yml@main
     with:
       post: "Hello world"
-    secrets:
-      personal_access_token: ${{ secrets.token }}
