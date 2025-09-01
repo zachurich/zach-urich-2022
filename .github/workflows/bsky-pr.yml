@@ -1,0 +1,13 @@
+name: Post to Bluesky
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+jobs:
+  call-workflow-passing-data:
+    uses: zachurich/gh-actions/blob/main/.github/workflows/pr-bluesky.yml@main
+    with:
+      post: "Hello world"
+    secrets:
+      personal_access_token: ${{ secrets.token }}
