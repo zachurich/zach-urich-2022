@@ -2,9 +2,6 @@ name: Post to Bluesky
 on:
   pull_request:
     types: [opened]
-    branches:
-      - main
-      - master
 jobs:
   call-workflow-passing-data:
     uses: zachurich/gh-actions/.github/workflows/pr-bluesky.yml@main
