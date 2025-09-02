@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@netlify/edge-functions": "^2.3.1",
-    "@netlify/remix-edge-adapter": "^3.2.1",
+    "@netlify/remix-adapter": "^2.6.1",
     "@netlify/remix-runtime": "^2.2.0",
     "@prismicio/client": "^7.20.0",
     "@prismicio/helpers": "^2.3.9",
