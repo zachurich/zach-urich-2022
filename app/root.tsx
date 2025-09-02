@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { type LinksFunction, type MetaFunction } from '@remix-run/node';
 
 import {
@@ -24,6 +24,7 @@ import { AnimationContext, initialAnimationState } from './animation';
 import { cms } from '~/cms';
 
 import '~/styles/global.css';
+import { Shape1 } from './svgs';
 
 type Content = {
   navigation: NavItem[];
@@ -146,6 +147,16 @@ function Document({ children }: { children: ReactNode }) {
     }
   }, [pathname, hash]);
 
+  const [animationValues, setAnimationValues] = useState<AnimationStateType>(
+    initialAnimationState,
+  );
+
+  const context: AnimationStateType = {
+    ...animationValues,
+    updateValues: (newValues) =>
+      setAnimationValues((values) => ({ ...values, ...newValues })),
+  };
+
   return (
     <html lang="en">
       <head>
@@ -159,7 +170,9 @@ function Document({ children }: { children: ReactNode }) {
           {announceTitle}
         </span>
 
-        {children}
+        <AnimationContext.Provider value={context}>
+          {children}
+        </AnimationContext.Provider>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -219,9 +232,7 @@ export function ErrorBoundary() {
 
 export default function App() {
   const { navigation } = useLoaderData<Content>();
-  const [animationValues, setAnimationValues] = useState<AnimationStateType>(
-    initialAnimationState,
-  );
+
   return (
     <Document>
       <a className="focus-only" href="#main-content">
@@ -230,15 +241,7 @@ export default function App() {
       <div className="site-wrapper">
         <Header data={navigation} />
         <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
-          <AnimationContext.Provider
-            value={{
-              ...animationValues,
-              updateValues: (newValues) =>
-                setAnimationValues((values) => ({ ...values, ...newValues })),
-            }}
-          >
-            <Outlet />
-          </AnimationContext.Provider>
+          <Outlet />
         </main>
         <Footer />
       </div>

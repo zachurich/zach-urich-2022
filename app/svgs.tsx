@@ -5,10 +5,13 @@ import { AnimationContext, colors } from './animation';
 export function Shape1() {
   const animationContext = useContext(AnimationContext);
 
-  const [currentAnimation, animation] = useSpring(() => ({
-    path: animationContext.path,
-    color: animationContext.color,
-  }));
+  const [currentAnimation, animation] = useSpring(
+    () => ({
+      path: animationContext.path,
+      color: animationContext.color,
+    }),
+    [],
+  );
 
   useEffect(() => {
     const newPath = Math.floor(Math.random() * 100);
@@ -19,13 +22,13 @@ export function Shape1() {
         ? colors[colors.indexOf(animationContext.color) + 1]
         : colors[0];
 
-    // setTimeout(async () => {
-    animation.start({
-      path: newPath,
-      color: newColor,
-      config: { tension: 150, friction: 20 },
-    });
-    // }, 600);
+    setTimeout(() => {
+      animation.start({
+        path: newPath,
+        color: newColor,
+        config: { tension: 150, friction: 20 },
+      });
+    }, 200);
 
     animationContext.updateValues({
       path: newPath,
@@ -38,8 +41,8 @@ export function Shape1() {
   return (
     <div className="shape" aria-hidden="true">
       <svg
-        width="1000"
-        height="1000"
+        width="416"
+        height="254"
         viewBox="0 0 416 254"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
