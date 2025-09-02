@@ -61,6 +61,18 @@ export const meta: MetaFunction = () => {
 
 function Header({ data }: { data: NavItem[] }) {
   const location = useLocation();
+
+  const onSamePageLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+  ) => {
+    // @ts-ignore
+    const path = new URL(e.target.href).pathname;
+    if (path === location.pathname) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  };
+
   return (
     <header className="site-header container">
       <Link
@@ -68,6 +80,7 @@ function Header({ data }: { data: NavItem[] }) {
           'navigation-item--current': location.pathname === '/',
         })}
         to="/"
+        onClick={onSamePageLinkClick}
         aria-current={location.pathname === '/' ? 'page' : undefined}
         prefetch="intent"
       >
@@ -97,6 +110,7 @@ function Header({ data }: { data: NavItem[] }) {
                   aria-current={
                     location.pathname === link.to ? 'page' : undefined
                   }
+                  onClick={onSamePageLinkClick}
                   prefetch="intent"
                 >
                   {link.text}
