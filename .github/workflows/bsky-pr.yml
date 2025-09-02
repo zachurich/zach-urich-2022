@@ -1,7 +1,7 @@
 name: Post to Bluesky
 on:
   pull_request:
-    types: [opened,synchronize]
+    types: [opened,synchronize,reopened]
 jobs:
   call-workflow-passing-data:
     uses: zachurich/gh-actions/.github/workflows/pr-bluesky.yml@main
