@@ -5,6 +5,4 @@ on:
 jobs:
   call-workflow-passing-data:
     uses: zachurich/gh-actions/.github/workflows/pr-bluesky.yml@main
-    with:
-      post: "Just opened a PR: ${{ github.event.pull_request.title }} \n\n -- \n\n ${{ github.event.pull_request.html_url }}"
     secrets: inherit
