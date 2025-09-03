@@ -4,9 +4,10 @@ import { useLoaderData } from '@remix-run/react';
 import { Shape1 } from '~/svgs';
 import { github, GithubRepo } from '~/github';
 
-import '~/styles/repos.css';
 import { dateFromString } from '../dates';
 import { cms, PageContent } from '../cms';
+
+import '~/styles/repos.css';
 
 type LoaderType = {
   content: PageContent;
@@ -59,12 +60,16 @@ export default function Drawings() {
                   {dateFromString(repo.created_at)}
                 </span>
               </div>
-              <div className="repo-description">
-                {repo.description ?? 'No description 😅'}
+              <div className="repo-desc-lang-wrapper">
+                <div className="repo-description">
+                  {repo.description ?? 'No description 😅'}
+                </div>
+                {!repo.language ? null : (
+                  <div className="repo-language-wrapper">
+                    <div className="repo-language pill">{repo.language}</div>
+                  </div>
+                )}
               </div>
-              {!repo.language ? null : (
-                <div className="repo-language pill">{repo.language}</div>
-              )}
             </article>
           );
         })}

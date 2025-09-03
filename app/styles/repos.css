@@ -31,12 +31,17 @@
 }
 
 .repo-description {
-  max-width: 80%;
   font-size: 0.88rem;
 }
 
-.repo-language {
-  position: absolute;
-  bottom: 0.75rem;
-  right: 0.5rem;
+.repo-desc-lang-wrapper {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.repo-language-wrapper {
+  position: relative;
 }

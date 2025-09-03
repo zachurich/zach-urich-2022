@@ -10,7 +10,7 @@ export function Shape1() {
       path: animationContext.path,
       color: animationContext.color,
     }),
-    [],
+    [animationContext],
   );
 
   useEffect(() => {
@@ -22,13 +22,11 @@ export function Shape1() {
         ? colors[colors.indexOf(animationContext.color) + 1]
         : colors[0];
 
-    setTimeout(() => {
-      animation.start({
-        path: newPath,
-        color: newColor,
-        config: { tension: 150, friction: 20 },
-      });
-    }, 200);
+    animation.start({
+      path: newPath,
+      color: newColor,
+      config: { tension: 150, friction: 20 },
+    });
 
     animationContext.updateValues({
       path: newPath,
