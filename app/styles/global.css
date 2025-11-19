@@ -29,6 +29,11 @@ body {
 
 h1 {
   font-size: 1.5rem;
+  text-underline-offset: 0.25rem;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(--secondary-color); /* Optional: Sets the color of the dashed line */
+  text-decoration-thickness: 2px;
 }
 
 h2 {
@@ -319,12 +324,4 @@ p {
   }
 }
 
-h1:after {
-  display: block;
-  align-self: flex-end;
-  /* animation: blink-underline 0.8s infinite ease-in-out; */
-  content: '';
-  width: 2.5rem;
-  border-top: 2px dashed var(--secondary-color);
-  margin-top: 0.25rem;
-}
+
