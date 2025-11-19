@@ -61,36 +61,39 @@ export default function Index() {
             <p>{content.intro}</p>
           </div>
         </section>
-        <article>
-          <h2 id={content.sectionHeader.toLowerCase()}>
-            💭 {content.sectionHeader}
-          </h2>
-          <ul className="posts">
-            {posts.map((post) => {
-              return (
-                <li key={post.link} className="post card">
-                  <Link to={post.link}>
-                    <span className="post-title">{post.title}</span>
-                    <br></br>
-                    <span className="post-date">{post.date}</span>
-                  </Link>
+        <div className="columns">
+          <article>
+            <h2 id={content.sectionHeader.toLowerCase()}>
+              💭 {content.sectionHeader}
+            </h2>
+            <ul className="posts">
+              {posts.map((post) => {
+                return (
+                  <li key={post.link} className="post card">
+                    <Link to={post.link}>
+                      <span className="post-title">{post.title}</span>
+                      <br></br>
+                      <span className="post-date">{post.date}</span>
+                    </Link>
+                    <span className="post-excerpt">{post.excerpt}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </article>
+          <article className="sideBar">
+            <h2 id={content.sectionHeader.toLowerCase()}>🔗 links</h2>
+            <ul className="card links-list">
+              {socialLinks.map((link) => (
+                <li key={link.uri}>
+                  <a target="_blank" rel="noopener noreferrer" href={link.uri}>
+                    {link.linkName}
+                  </a>
                 </li>
-              );
-            })}
-          </ul>
-        </article>
-        <article>
-          <h2 id={content.sectionHeader.toLowerCase()}>🔗 links</h2>
-          <ul className="card">
-            {socialLinks.map((link) => (
-              <li key={link.uri}>
-                <a target="_blank" rel="noopener noreferrer" href={link.uri}>
-                  {link.linkName}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </article>
+              ))}
+            </ul>
+          </article>
+        </div>
       </div>
     </>
   );

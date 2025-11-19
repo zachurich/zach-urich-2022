@@ -12,7 +12,7 @@ import '~/styles/grid.css';
 type Content = PageContent;
 
 export const loader: LoaderFunction = async (): Promise<Content> => {
-  const cache = await cms.getGridPageContent('art-page');
+  const cache = await cms.getGridPageContent('art');
   return cache;
 };
 

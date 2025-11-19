@@ -30,6 +30,13 @@ type Content = {
   navigation: NavItem[];
 };
 
+export function headers() {
+  return {
+    'cache-control': 'max-age=604800, stale-while-revalidate=86400',
+    'Netlify-CDN-Cache-Control': 'max-age=604800, stale-while-revalidate=86400',
+  };
+}
+
 export const loader = async (): Promise<Content> => {
   const navigation = await cms.getNavigation();
 

@@ -9,6 +9,13 @@ import { Grid } from '../components/Grid';
 
 import '~/styles/grid.css';
 
+export function headers() {
+  return {
+    'cache-control': 'max-age=604800, stale-while-revalidate=86400',
+    'Netlify-CDN-Cache-Control': 'max-age=604800, stale-while-revalidate=86400',
+  };
+}
+
 export const loader: LoaderFunction = async (): Promise<PageContent> => {
   const content = await cms.getGridPageContent('photos');
   return content;

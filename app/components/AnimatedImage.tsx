@@ -24,8 +24,8 @@ export const AnimatedImage = ({
   randomized = true,
   ...rest
 }: Props) => {
-  const offsetImage = 500 + (randomized ? randomInt(0, 500) : 0);
-  const offsetChildren = 700 + (randomized ? randomInt(0, 500) : 0);
+  const offsetImage = 200 + (randomized ? randomInt(0, 500) : 0);
+  const offsetChildren = 400 + (randomized ? randomInt(0, 500) : 0);
 
   const [styles, animation] = useSpring(
     () => ({

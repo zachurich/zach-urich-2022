@@ -14,6 +14,13 @@ type LoaderType = {
   repos: GithubRepo[];
 };
 
+export function headers() {
+  return {
+    'cache-control': 'max-age=604800, stale-while-revalidate=86400',
+    'Netlify-CDN-Cache-Control': 'max-age=604800, stale-while-revalidate=86400',
+  };
+}
+
 export const loader: LoaderFunction = async (): Promise<LoaderType> => {
   const repos = (await github.fetchRepos()) ?? [];
   const content = await cms.getGridPageContent('code');

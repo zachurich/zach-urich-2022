@@ -24,6 +24,7 @@ export type Post = {
   title: string;
   link: string;
   date: string;
+  excerpt: string;
 };
 
 export type SocialLink = {
@@ -82,7 +83,7 @@ const getNavigation = async (): Promise<NavItem[] | []> => {
   return [];
 };
 
-const getPosts = async (): Promise<Post[]> => {
+const getPosts = async () => {
   const data = await client.getAllByType('post', {
     orderings: {
       field: 'document.first_publication_date',
@@ -93,6 +94,9 @@ const getPosts = async (): Promise<Post[]> => {
     return {
       title: post.data.title?.[0]?.text,
       link: `/posts/${post.uid}`,
+      excerpt:
+        post.data.excerpt?.[0]?.text.slice(0, 130).replace('...', '').trim() +
+        '...',
       date: dateFromString(post.first_publication_date),
     };
   });
@@ -123,7 +127,7 @@ const getHome = async (): Promise<HomePageContent> => {
   };
 };
 
-type GridPageType = 'art-page' | 'photos' | 'code';
+type GridPageType = 'art' | 'photos' | 'code';
 
 const getGridPageContent = async (
   pageSlug: GridPageType,
@@ -157,13 +161,10 @@ const getPost = async (postId: string): Promise<PostContent> => {
 };
 
 export const cms = {
-  getHome: withCache<HomePageContent>(getHome, 'cms_home'),
-  getNavigation: withCache<NavItem[]>(getNavigation, 'cms_nav'),
-  getPosts: withCache<Post[]>(getPosts, 'cms_posts'),
+  getHome,
+  getNavigation,
+  getPosts,
   getLinks: getLinks,
   getPost,
-  getGridPageContent: withCache<PageContent, GridPageType>(
-    getGridPageContent,
-    `cms_:arg`,
-  ),
+  getGridPageContent: getGridPageContent,
 };
