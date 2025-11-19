@@ -29,7 +29,7 @@ body {
 
 h1 {
   font-size: 1.5rem;
-  text-underline-offset: 0.25rem;
+  text-underline-offset: 0.5rem;
   text-decoration-line: underline;
   text-decoration-style: dashed;
   text-decoration-color: var(--secondary-color); /* Optional: Sets the color of the dashed line */
