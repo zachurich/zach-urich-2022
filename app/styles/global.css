@@ -4,6 +4,9 @@
   --primary-color: #6691ff;
   --secondary-color: #ffe247;
   --text-color: #eeeeee;
+  --dark-blue: rgba(71, 61, 139, 0.489);
+  --green: seagreen;
+  --header-underline: rgba(71, 61, 139, 0.842);
 
   --primary-font: 'Roboto Mono', monospace;
   --weight-bold: 700;
@@ -27,13 +30,28 @@ body {
   color: var(--text-color);
 }
 
+body:after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 110vw;
+  height: 100vh;
+  opacity: 0.85;
+  background-image: linear-gradient(
+    130deg,
+    hsl(270deg 100% 7%) 61%,
+    hsl(212deg 51% 21%) 97%,
+    hsl(198deg 40% 34%) 101%,
+    hsl(184deg 22% 50%) 102%,
+    hsl(159deg 28% 72%) 101%,
+    hsl(104deg 100% 95%) 100%
+  );
+  z-index: -1;
+}
+
 h1 {
   font-size: 1.5rem;
-  text-underline-offset: 0.5rem;
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-decoration-color: var(--secondary-color); /* Optional: Sets the color of the dashed line */
-  text-decoration-thickness: 2px;
 }
 
 h2 {
@@ -49,6 +67,13 @@ h2,
 h3,
 h4,
 h5 {
+  text-underline-offset: 0.25rem;
+  text-decoration-line: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: var(
+    --header-underline
+  ); /* Optional: Sets the color of the dashed line */
+  text-decoration-thickness: 2px;
   margin-top: 0;
   margin-bottom: 0.8rem;
 }
@@ -72,14 +97,18 @@ main {
 }
 
 footer {
-  padding: 1rem 0;
+  width: 100vw;
+  text-align: center;
+  padding: 1.25rem 0 0.75rem;
   font-size: 0.8rem;
+  border-top: 1px solid rgba(71, 61, 139, 0.21);
 }
 
 a {
   text-transform: lowercase;
   color: var(--primary-color);
   font-weight: var(--weight-bold);
+  text-underline-offset: 0.1rem;
 }
 
 a:hover {
@@ -142,6 +171,18 @@ p {
   align-items: flex-start;
   flex-direction: row;
   margin: 2rem 0 4rem;
+  position: relative;
+}
+
+.site-header:after {
+  position: absolute;
+  content: '';
+  display: block;
+  opacity: 0.2;
+  width: 100vw;
+  border: 1px solid var(--dark-blue);
+  bottom: -0.5rem;
+  left: -51%;
 }
 
 .site-header .home-link {
@@ -301,7 +342,7 @@ p {
 .columns {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 @media screen and (min-width: 700px) {
@@ -323,5 +364,3 @@ p {
     opacity: 0;
   }
 }
-
-

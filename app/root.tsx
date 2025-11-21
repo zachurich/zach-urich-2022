@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { type LinksFunction, type MetaFunction } from '@remix-run/node';
 
 import {
@@ -20,11 +20,10 @@ import type { NavItem } from './cms';
 import classNames from 'classnames';
 
 import type { AnimationStateType } from './animation';
-import { AnimationContext, initialAnimationState } from './animation';
+import { initialAnimationState } from './animation';
 import { cms } from '~/cms';
 
 import '~/styles/global.css';
-import { Shape1 } from './svgs';
 
 type Content = {
   navigation: NavItem[];
@@ -176,10 +175,7 @@ function Document({ children }: { children: ReactNode }) {
         <span className="hidden" ref={initialFocusRef} tabIndex={-1}>
           {announceTitle}
         </span>
-
-        <AnimationContext.Provider value={context}>
-          {children}
-        </AnimationContext.Provider>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
