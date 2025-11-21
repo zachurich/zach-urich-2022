@@ -65,6 +65,11 @@ export const AnimatedImage = ({
         await childAnimation.start({ opacity: 1, x: 0 });
       }, offsetChildren);
     }
+
+    return () => {
+      animation.stop();
+      childAnimation.stop();
+    };
   }, [loadedSrc, animation, childAnimation]);
 
   if (!loadedSrc) {
