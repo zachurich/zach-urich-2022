@@ -1,6 +1,6 @@
-import { useSpring, animated } from '@react-spring/web';
-import { useContext, useEffect } from 'react';
-import { AnimationContext, colors } from './animation';
+// import { useSpring, animated } from '@react-spring/web';
+// import { useContext, useEffect } from 'react';
+// import { AnimationContext, colors } from './animation';
 
 // export function Shape1() {
 //   const animationContext = useContext(AnimationContext);

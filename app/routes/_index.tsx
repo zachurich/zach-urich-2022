@@ -1,9 +1,9 @@
-import { type MetaFunction } from 'react-router';
 import { Link, useLoaderData } from 'react-router';
 
 import type { HomePageContent, SocialLink, Post } from '~/cms';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
+import type { Route } from '../+types/root';
 
 import { AnimatedImage } from '../components/AnimatedImage';
 
@@ -31,11 +31,11 @@ export const loader = async (): Promise<Content> => {
 //   return [];
 // }
 
-export const meta: MetaFunction = ({ data }) => {
+export const meta = ({loaderData}: Route.MetaArgs) => {
   return [
     {
       title: 'Zach Urich',
-      // description: `${data.content.header}. ${data.content.intro}`,
+      description: `${loaderData?.content?.header}. ${loaderData?.content.intro}`,
     },
   ];
 };
