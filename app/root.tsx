@@ -19,8 +19,8 @@ import type { NavItem } from './cms';
 
 import classNames from 'classnames';
 
-import type { AnimationStateType } from './animation';
-import { initialAnimationState } from './animation';
+// import type { AnimationStateType } from './animation';
+// import { initialAnimationState } from './animation';
 import { cms } from '~/cms';
 
 import '~/styles/global.css';
@@ -74,8 +74,7 @@ function Header({
   const onSamePageLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
   ) => {
-    // @ts-ignore
-    const path = new URL(e.target.href).pathname;
+    const path = new URL(e.currentTarget.href).pathname;
     if (path === location.pathname) {
       e.preventDefault();
       e.stopPropagation();
@@ -168,15 +167,15 @@ function Document({ children }: { children: ReactNode }) {
     }
   }, [pathname, hash]);
 
-  const [animationValues, setAnimationValues] = useState<AnimationStateType>(
-    initialAnimationState,
-  );
+  // const [animationValues, setAnimationValues] = useState<AnimationStateType>(
+  //   initialAnimationState,
+  // );
 
-  const context: AnimationStateType = {
-    ...animationValues,
-    updateValues: (newValues) =>
-      setAnimationValues((values) => ({ ...values, ...newValues })),
-  };
+  // const context: AnimationStateType = {
+  //   ...animationValues,
+  //   updateValues: (newValues) =>
+  //     setAnimationValues((values) => ({ ...values, ...newValues })),
+  // };
 
   return (
     <html lang="en">

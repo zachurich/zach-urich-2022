@@ -1,40 +1,37 @@
-import { type LoaderFunction, type MetaFunction } from 'react-router';
 import { Link, useLoaderData } from 'react-router';
 import type { PostContent } from '~/cms';
 
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { RenderContent } from '~/components/Cms';
+import type { Route } from './+types/posts.$id';
 
 import '~/styles/posts.css';
+
 
 type Content = {
   post: PostContent;
 };
 
-export const loader: LoaderFunction = async ({
+export const loader = async ({
   params,
-}): Promise<Content | null> => {
-  const postId = params.id;
-  if (postId) {
-    const post = await cms.getPost(postId);
-    return {
-      post,
-    };
-  }
-
-  return null;
+}: Route.LoaderArgs): Promise<Content> => {
+  const postId = params.id ?? '';
+  
+  const post = await cms.getPost(postId);
+  return {
+    post,
+  };
 };
 
-// export function links() {
-//   return [];
-// }
-
-export const meta = ({ data }: { data: Content }) => {
+export const meta = ({ loaderData }: Route.MetaArgs) => {
+  if(!loaderData?.post) {
+    return [{ title: 'Post not found - zachurich.com' }];
+  }
   return [
     {
-      title: `${data.post.title} - zachurich.com`,
-      description: data.post.date,
+      title: `${loaderData.post.title} - zachurich.com`,
+      description: loaderData.post.date,
     },
   ];
 };

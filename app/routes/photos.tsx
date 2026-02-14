@@ -1,4 +1,3 @@
-import { type LoaderFunction, type MetaFunction } from 'react-router';
 import { useLoaderData } from 'react-router';
 
 import type { PageContent, GridImage } from '~/cms';
@@ -6,22 +5,18 @@ import type { PageContent, GridImage } from '~/cms';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { Grid } from '../components/Grid';
+import type { Route } from './+types/_index';
 
 import '~/styles/grid.css';
 
-export const loader: LoaderFunction = async (): Promise<PageContent> => {
+export const loader = async (): Promise<PageContent> => {
   const content = await cms.getGridPageContent('photos');
   return content;
 };
 
-// export function links() {
-//   return [];
-// }
-
-export const meta: MetaFunction = ({ data }) => {
+export const meta = ({ loaderData }: Route.MetaArgs) => {
   return [
-    // @ts-expect-error Content doesn't exist on type data
-    { title: 'Photos - zachurich.com', description: data?.content?.intro },
+    { title: 'Photos - zachurich.com', description: loaderData?.content?.intro },
   ];
 };
 

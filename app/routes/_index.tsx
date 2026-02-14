@@ -3,7 +3,7 @@ import { Link, useLoaderData } from 'react-router';
 import type { HomePageContent, SocialLink, Post } from '~/cms';
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
-import type { Route } from '../+types/root';
+import type { Route } from './+types/_index';
 
 import { AnimatedImage } from '../components/AnimatedImage';
 
@@ -31,11 +31,11 @@ export const loader = async (): Promise<Content> => {
 //   return [];
 // }
 
-export const meta = ({loaderData}: Route.MetaArgs) => {
+export const meta = ({ loaderData }: Route.MetaArgs) => {
   return [
     {
       title: 'Zach Urich',
-      description: `${loaderData?.content?.header}. ${loaderData?.content.intro}`,
+      description: loaderData?.content?.header ? `${loaderData.content.header}. ${loaderData.content.intro}` : '',
     },
   ];
 };

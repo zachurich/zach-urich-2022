@@ -1,5 +1,6 @@
 import { type ActionFunction } from 'react-router';
-import { redisClient } from '../redis';
+// import { redisClient } from '../redis';
+const redisClient = null; // placeholder until I decide if I want to use redis or not
 
 export const action: ActionFunction = async ({
   request,
@@ -14,7 +15,8 @@ export const action: ActionFunction = async ({
     }
 
     if (request.method === 'POST') {
-      const response = await redisClient.flushall();
+      // @ts-expect-error flushall might not exist on redisClient
+      const response = await redisClient?.flushall?.();
       if (response !== 'OK') throw Error('redis error');
 
       return Response.json(
