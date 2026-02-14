@@ -2,10 +2,12 @@ import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
 import { Shape1 } from '~/svgs';
-import { github, GithubRepo } from '~/github';
+import type { GithubRepo } from '~/github';
+import { github } from '~/github';
 
 import { dateFromString } from '../dates';
-import { cms, PageContent } from '../cms';
+import type { PageContent } from '../cms';
+import { cms } from '../cms';
 
 import '~/styles/repos.css';
 
@@ -13,14 +15,6 @@ type LoaderType = {
   content: PageContent;
   repos: GithubRepo[];
 };
-
-export function headers() {
-  return {
-    'cache-control': 'max-age=604800, stale-while-revalidate=86400',
-    'Netlify-CDN-Cache-Control': 'max-age=604800, stale-while-revalidate=86400',
-  };
-}
-
 export const loader: LoaderFunction = async (): Promise<LoaderType> => {
   const repos = (await github.fetchRepos()) ?? [];
   const content = await cms.getGridPageContent('code');

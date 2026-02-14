@@ -66,16 +66,19 @@ export default function Index() {
             <h2 id={content.sectionHeader.toLowerCase()}>
               💭 {content.sectionHeader}
             </h2>
-            <ul className="posts">
-              {posts.map((post) => {
+            <ul className="home-posts">
+              {posts.map((post, index) => {
                 return (
-                  <li key={post.link} className="post card">
-                    <Link to={post.link}>
-                      <span className="post-title">{post.title}</span>
+                  <li key={post.link} className="home-post card">
+                    <Link
+                      to={post.link}
+                      prefetch={index <= 3 ? 'render' : undefined}
+                    >
+                      <span className="home-post-title">{post.title}</span>
                       <br></br>
-                      <span className="post-date">{post.date}</span>
+                      <span className="home-post-date">{post.date}</span>
                     </Link>
-                    <span className="post-excerpt">{post.excerpt}</span>
+                    <span className="home-post-excerpt">{post.excerpt}</span>
                   </li>
                 );
               })}

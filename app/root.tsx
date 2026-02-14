@@ -25,16 +25,12 @@ import { cms } from '~/cms';
 
 import '~/styles/global.css';
 
+const THEMES = ['default', 'orange', 'blue', 'green'] as const;
+const ENABLE_THEME_TOGGLE = false;
+
 type Content = {
   navigation: NavItem[];
 };
-
-export function headers() {
-  return {
-    'cache-control': 'max-age=604800, stale-while-revalidate=86400',
-    'Netlify-CDN-Cache-Control': 'max-age=604800, stale-while-revalidate=86400',
-  };
-}
 
 export const loader = async (): Promise<Content> => {
   const navigation = await cms.getNavigation();
@@ -66,7 +62,13 @@ export const meta: MetaFunction = () => {
   return [{ title: 'zachurich.com' }];
 };
 
-function Header({ data }: { data: NavItem[] }) {
+function Header({
+  data,
+  setTheme,
+}: {
+  data: NavItem[];
+  setTheme: React.Dispatch<React.SetStateAction<(typeof THEMES)[number]>>;
+}) {
   const location = useLocation();
 
   const onSamePageLinkClick = (
@@ -81,52 +83,65 @@ function Header({ data }: { data: NavItem[] }) {
   };
 
   return (
-    <header className="site-header container">
-      <Link
-        className={classNames('home-link', {
-          'navigation-item--current': location.pathname === '/',
-        })}
-        to="/"
-        onClick={onSamePageLinkClick}
-        aria-current={location.pathname === '/' ? 'page' : undefined}
-        prefetch="intent"
-      >
-        zachurich.com
-      </Link>
-      <nav id="navigation" className="primary-navigation">
-        <ul className="navigation-items">
-          {data.map((link: NavItem) => {
-            if (link.external) {
+    <header className="site-header">
+      <div className="container">
+        {ENABLE_THEME_TOGGLE && (
+          <div className="theme-toggle">
+            {THEMES.map((themeOption) => (
+              <button
+                key={themeOption}
+                className={`theme-switch theme-${themeOption}-button`}
+                onClick={() => setTheme(themeOption)}
+              ></button>
+            ))}
+          </div>
+        )}
+        <Link
+          className={classNames('home-link', {
+            'navigation-item--current': location.pathname === '/',
+          })}
+          to="/"
+          onClick={onSamePageLinkClick}
+          aria-current={location.pathname === '/' ? 'page' : undefined}
+          prefetch="intent"
+        >
+          zachurich.com
+        </Link>
+        <nav id="navigation" className="primary-navigation">
+          <ul className="navigation-items">
+            {data.map((link: NavItem) => {
+              if (link.external) {
+                return (
+                  <li className="navigation-item" key={link.id}>
+                    <a href={link.to} target="_blank" rel="noreferrer">
+                      {link.text}
+                    </a>
+                  </li>
+                );
+              }
               return (
-                <li className="navigation-item" key={link.id}>
-                  <a href={link.to} target="_blank" rel="noreferrer">
+                <li
+                  className={classNames('navigation-item', {
+                    'navigation-item--current': location.pathname === link.to,
+                  })}
+                  key={link.id}
+                >
+                  <Link
+                    to={link.to}
+                    aria-current={
+                      location.pathname === link.to ? 'page' : undefined
+                    }
+                    onClick={onSamePageLinkClick}
+                    prefetch="render"
+                  >
                     {link.text}
-                  </a>
+                  </Link>
                 </li>
               );
-            }
-            return (
-              <li
-                className={classNames('navigation-item', {
-                  'navigation-item--current': location.pathname === link.to,
-                })}
-                key={link.id}
-              >
-                <Link
-                  to={link.to}
-                  aria-current={
-                    location.pathname === link.to ? 'page' : undefined
-                  }
-                  onClick={onSamePageLinkClick}
-                  prefetch="intent"
-                >
-                  {link.text}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+            })}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }
@@ -235,18 +250,21 @@ export function ErrorBoundary() {
 
 export default function App() {
   const { navigation } = useLoaderData<Content>();
+  const [theme, setTheme] = useState<(typeof THEMES)[number]>('default');
 
   return (
     <Document>
-      <a className="focus-only" href="#main-content">
-        Skip to main content
-      </a>
-      <div className="site-wrapper">
-        <Header data={navigation} />
-        <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
-          <Outlet />
-        </main>
-        <Footer />
+      <div className={`root ${theme}-theme`}>
+        <a className="focus-only" href="#main-content">
+          Skip to main content
+        </a>
+        <Header data={navigation} setTheme={setTheme} />
+        <div className="site-wrapper">
+          <main tabIndex={-1} id="main-content" aria-labelledby="page-header">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
       </div>
     </Document>
   );

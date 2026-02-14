@@ -9,13 +9,6 @@ import { Grid } from '../components/Grid';
 
 import '~/styles/grid.css';
 
-export function headers() {
-  return {
-    'cache-control': 'max-age=604800, stale-while-revalidate=86400',
-    'Netlify-CDN-Cache-Control': 'max-age=604800, stale-while-revalidate=86400',
-  };
-}
-
 export const loader: LoaderFunction = async (): Promise<PageContent> => {
   const content = await cms.getGridPageContent('photos');
   return content;
@@ -27,7 +20,7 @@ export const loader: LoaderFunction = async (): Promise<PageContent> => {
 
 export const meta: MetaFunction = ({ data }) => {
   return [
-    // @ts-expect-error
+    // @ts-expect-error Content doesn't exist on type data
     { title: 'Photos - zachurich.com', description: data?.content?.intro },
   ];
 };

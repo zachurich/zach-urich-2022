@@ -25,32 +25,33 @@
   margin-bottom: 0;
 }
 
-.posts {
+.home-posts {
   list-style-type: none;
   margin: 0;
   padding: 0;
   margin-bottom: 0;
 }
 
-.post a {
+.home-post a {
   text-decoration: none;
 }
 
-.post-title {
+.home-post-title {
   text-decoration: underline;
 }
 
-.post-date {
+.home-post-date {
   color: white;
   font-size: 0.9rem;
   font-weight: var(--weight-reg);
   text-decoration: none;
   margin-top: 0.5rem;
+  font-style: italic;
   margin-bottom: 0.5rem;
   display: block;
 }
 
-.post-excerpt {
+.home-post-excerpt {
   font-size: 0.875rem;
 }
 
