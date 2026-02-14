@@ -4,5 +4,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import netlifyPlugin from '@netlify/vite-plugin-react-router';
 
 export default defineConfig({
-  plugins: [reactRouter(), netlifyPlugin(), tsconfigPaths()],
+  plugins: [
+    reactRouter(),
+    netlifyPlugin({
+      // Deploy to Edge Functions for faster global performance
+      edge: true,
+    }),
+    tsconfigPaths(),
+  ],
 });
