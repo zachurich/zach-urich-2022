@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { type LinksFunction, type MetaFunction } from '@remix-run/node';
+import { type LinksFunction, type MetaFunction } from 'react-router';
 
 import {
   Link,
@@ -13,7 +13,7 @@ import {
   useLoaderData,
   useLocation,
   isRouteErrorResponse,
-} from '@remix-run/react';
+} from 'react-router';
 
 import type { NavItem } from './cms';
 

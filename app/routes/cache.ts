@@ -1,4 +1,4 @@
-import { type ActionFunction, json } from '@remix-run/node';
+import { type ActionFunction } from 'react-router';
 import { redisClient } from '../redis';
 
 export const action: ActionFunction = async ({
@@ -17,19 +17,19 @@ export const action: ActionFunction = async ({
       const response = await redisClient.flushall();
       if (response !== 'OK') throw Error('redis error');
 
-      return json(
+      return Response.json(
         {
           response: 'busted.',
         },
-        200,
+        { status: 200 }
       );
     } else throw Error('nice try.');
   } catch (err) {
-    return json(
+    return Response.json(
       {
         response: 'bust failed. ' + err,
       },
-      500,
+      { status: 500 }
     );
   }
 };

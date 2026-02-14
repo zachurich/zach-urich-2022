@@ -1,5 +1,5 @@
-import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
+import { type LoaderFunction, type MetaFunction } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import type { PostContent } from '~/cms';
 
 import { cms } from '~/cms';

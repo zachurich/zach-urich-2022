@@ -1,5 +1,5 @@
-import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { type LoaderFunction, type MetaFunction } from 'react-router';
+import { useLoaderData } from 'react-router';
 
 import type { PageContent, GridImage } from '~/cms';
 
