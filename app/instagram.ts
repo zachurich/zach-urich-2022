@@ -1,5 +1,3 @@
-import { withCache } from '~/redis';
-
 const instaApiBase = 'https://graph.instagram.com';
 
 const fields = 'media_type,media_url,permalink,caption';
@@ -43,6 +41,6 @@ const getPhotos = async (): Promise<InstaResponse[]> => {
 };
 
 export const instagram = {
-  getDrawings: withCache(getDrawings, 'insta_drawings'),
-  getPhotos: withCache(getPhotos, 'insta_photos'),
+  getDrawings,
+  getPhotos,
 };

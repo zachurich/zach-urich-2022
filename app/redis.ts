@@ -1,8 +1,9 @@
-import Redis from 'ioredis';
+// import Redis from 'ioredis';
 
-const connectionString = process.env.REDIS_CONNECTION_STRING ?? '';
+// const connectionString = process.env.REDIS_CONNECTION_STRING ?? '';
 
-const redisClient = new Redis(connectionString);
+// const redisClient = new Redis(connectionString);
+const redisClient = {};
 
 const withCache =
   <Response, Args = unknown[]>(
