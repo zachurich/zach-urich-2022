@@ -173,7 +173,6 @@ const _fetchLatestCommit = async (
   }
 
   const responseData = await response.json();
-  console.log('GitHub API response for latest commit:', responseData);
   const latestCommit = responseData[0]; // Get the latest commit (first item in the array)
   return {
     url: latestCommit.html_url,
