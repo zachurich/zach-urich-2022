@@ -1,3 +1,5 @@
+import { dateFromString } from './dates';
+
 export type GithubRepo = {
   id: number;
   node_id: string;
@@ -106,10 +108,18 @@ export type GithubRepo = {
   };
 };
 
+export type LatestCommit = {
+  url: string;
+  message: string;
+  date: string;
+  sha: string;
+  repo: string;
+};
+
 const GITHUB_API_URL = 'https://api.github.com';
 const USERNAME = 'zachurich';
 
-const fetchUserRepositories = async (username: string, token?: string) => {
+const _fetchRepos = async (username: string, token?: string) => {
   const url = `${GITHUB_API_URL}/users/${encodeURIComponent(username)}/repos`;
   const headers: Record<string, string> = {
     Accept: 'application/vnd.github.v3+json',
@@ -138,8 +148,54 @@ const fetchUserRepositories = async (username: string, token?: string) => {
 
 // Example usage:
 const fetchRepos = () =>
-  fetchUserRepositories(USERNAME, process.env.GH_TOKEN).catch(console.error);
+  _fetchRepos(USERNAME, process.env.GH_TOKEN).catch(console.error);
+
+const _fetchLatestCommit = async (
+  repo: string,
+  token?: string,
+): Promise<LatestCommit> => {
+  const url = `${GITHUB_API_URL}/repos/${encodeURIComponent(
+    USERNAME,
+  )}/${encodeURIComponent(repo)}/commits`;
+  const headers: Record<string, string> = {
+    Accept: 'application/vnd.github.v3+json',
+  };
+
+  if (token) {
+    headers['Authorization'] = `token ${token}`;
+  }
+
+  const response = await fetch(url, { headers });
+  if (!response.ok) {
+    throw new Error(
+      `GitHub API error: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  const responseData = await response.json();
+  const latestCommit = responseData[0]; // Get the latest commit (first item in the array)
+  return {
+    url: latestCommit.html_url,
+    message: latestCommit.commit.message,
+    date: dateFromString(latestCommit.commit.author.date),
+    sha: latestCommit.sha,
+    repo: latestCommit.html_url.split('/commit')[0], // Extract repo name from URL
+  };
+};
+
+const fetchLatestCommit = (): Promise<LatestCommit> =>
+  _fetchLatestCommit('zach-urich-2022', process.env.GH_TOKEN).catch((error) => {
+    console.error('Error fetching latest commit:', error);
+    return {
+      url: '',
+      message: 'Unable to fetch latest commit',
+      date: '',
+      sha: '',
+      repo: '',
+    };
+  });
 
 export const github = {
   fetchRepos,
+  fetchLatestCommit,
 };

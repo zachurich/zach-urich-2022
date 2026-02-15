@@ -6,24 +6,30 @@ import { Shape1 } from '~/svgs';
 import type { Route } from './+types/_index';
 
 import { AnimatedImage } from '../components/AnimatedImage';
+import type { LatestCommit } from '../github';
+import { github } from '../github';
 
 import '~/styles/home.css';
+import { ExternalLinkIcon } from 'lucide-react';
 
 type Content = {
   posts: Post[];
   content: HomePageContent;
   links: SocialLink[];
+  info: LatestCommit;
 };
 
 export const loader = async (): Promise<Content> => {
   const posts = await cms.getPosts();
   const content = await cms.getHome();
   const links = await cms.getLinks();
+  const info = await github.fetchLatestCommit();
 
   return {
     posts,
     content,
     links,
+    info,
   };
 };
 
@@ -35,13 +41,15 @@ export const meta = ({ loaderData }: Route.MetaArgs) => {
   return [
     {
       title: 'Zach Urich',
-      description: loaderData?.content?.header ? `${loaderData.content.header}. ${loaderData.content.intro}` : '',
+      description: loaderData?.content?.header
+        ? `${loaderData.content.header}. ${loaderData.content.intro}`
+        : '',
     },
   ];
 };
 
 export default function Index() {
-  const { posts, content, links: socialLinks } = useLoaderData<Content>();
+  const { posts, content, links: socialLinks, info } = useLoaderData<Content>();
 
   return (
     <>
@@ -95,6 +103,39 @@ export default function Index() {
                 </li>
               ))}
             </ul>
+            <h2 id={content.sectionHeader.toLowerCase()}>📊 site info</h2>
+            <div className="info card">
+              <div className="info-item">
+                <span>Latest commit</span>
+                <a
+                  className="pill"
+                  href={info.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {info.sha.slice(0, 7)} <ExternalLinkIcon />
+                </a>
+              </div>
+              <div className="info-item">
+                <span>Source code</span>
+                <a
+                  className="pill"
+                  href={info.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Visit <ExternalLinkIcon />
+                </a>
+              </div>
+              <div className="info-item">
+                <span>Last Updated</span>
+                <span className="pill">{info.date}</span>
+              </div>
+              {/* <div className="info-item">
+                <span>Your Browser</span>
+                <span className="pill">{navigator.userAgent}</span>
+              </div> */}
+            </div>
           </article>
         </div>
       </div>
