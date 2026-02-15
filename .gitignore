@@ -8,3 +8,8 @@ node_modules
 # Local Netlify folder
 .netlify
 .DS_Store
+
+# React Router generated types
+.react-router/
+
+settings.local.*

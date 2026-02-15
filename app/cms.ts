@@ -2,7 +2,6 @@ import * as prismic from '@prismicio/client';
 import { dateFromString } from '~/dates';
 
 import type { RTNode } from '@prismicio/types';
-import { withCache } from './redis';
 
 const endpoint = prismic.getRepositoryEndpoint('zachurichblog');
 
@@ -110,6 +109,7 @@ const getLinks = async (): Promise<SocialLink[]> => {
     },
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return data?.results?.[0]?.data?.links?.map((link: any) => ({
     linkName: link.link_name[0].text,
     uri: link.uri.url,

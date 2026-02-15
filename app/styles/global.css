@@ -11,7 +11,7 @@
   --primary-color: #6691ff;
   --secondary-color: #ffe247;
   --text-color: #eeeeee;
-  --header-underline: rgba(71, 61, 139, 0.8);
+  --header-underline: rgba(71, 61, 139, 0.5);
   --gradient: hsl(270deg 100% 7%) 61%, hsl(212deg 51% 21%) 97%,
     hsl(198deg 40% 34%) 101%, hsl(184deg 22% 50%) 102%, hsl(159deg 28% 72%) 101%,
     hsl(104deg 100% 95%) 100%;
@@ -30,7 +30,7 @@
   --primary-color: #6691ff;
   --secondary-color: #ffe247;
   --text-color: #eeeeee;
-  --header-underline: rgba(71, 61, 139, 0.8);
+  --header-underline: rgba(71, 61, 139, 0.5);
   --gradient: hsl(270deg 100% 7%) 61%, hsl(212deg 51% 21%) 97%,
     hsl(198deg 40% 34%) 101%, hsl(184deg 22% 50%) 102%, hsl(159deg 28% 72%) 101%,
     hsl(104deg 100% 95%) 100%;

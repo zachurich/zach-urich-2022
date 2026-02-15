@@ -1,5 +1,11 @@
 {
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "netlify-edge-plugin.ts"],
+  "include": [
+    "env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "netlify-edge-plugin.ts",
+    ".react-router/types/**/*"
+  ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,
@@ -17,7 +23,8 @@
     "paths": {
       "~/*": ["./app/*"]
     },
-    "types": ["@remix-run/node", "vite/client"],
+    "rootDirs": [".", "./.react-router/types"],
+    "types": ["@react-router/node", "vite/client"],
     // Vite takes care of building everything, not tsc.
     "noEmit": true
   }

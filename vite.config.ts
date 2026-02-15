@@ -1,8 +1,15 @@
-import { vitePlugin as remix } from '@remix-run/dev';
+import { reactRouter } from '@react-router/dev/vite';
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { netlifyPlugin } from '@netlify/remix-adapter/plugin';
+import netlifyPlugin from '@netlify/vite-plugin-react-router';
 
 export default defineConfig({
-  plugins: [remix(), netlifyPlugin(), tsconfigPaths()],
+  plugins: [
+    reactRouter(),
+    netlifyPlugin({
+      // Deploy to Edge Functions for faster global performance
+      edge: true,
+    }),
+    tsconfigPaths(),
+  ],
 });

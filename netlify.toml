@@ -1,10 +1,15 @@
 [build]
-command = "npm run build"
+command = "react-router build"
 publish = "build/client"
 
 [dev]
-command = "npm run dev"
+command = "react-router dev"
 framework = "vite"
+
+# Enable Edge Functions for React Router
+[functions]
+directory = "netlify/functions"
+# Note: React Router handles function generation automatically
 
 # Set immutable caching for static files, because they have fingerprinted filenames
 

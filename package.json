@@ -5,30 +5,29 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
+    "build": "react-router build",
+    "dev": "react-router dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "netlify serve",
-    "typecheck": "tsc"
+    "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
     "@netlify/edge-functions": "^2.3.1",
-    "@netlify/remix-adapter": "^2.6.1",
-    "@netlify/remix-runtime": "^2.2.0",
     "@prismicio/client": "^7.20.0",
     "@prismicio/helpers": "^2.3.9",
     "@prismicio/react": "^3.2.1",
     "@react-spring/web": "^10.0.1",
-    "@remix-run/node": "*",
-    "@remix-run/react": "*",
-    "@remix-run/serve": "*",
+    "react-router": "^7.13.0",
     "classnames": "^2.5.1",
     "ioredis": "^5.7.0",
     "isbot": "^4.1.0",
     "react-syntax-highlighter": "^15.6.6"
   },
   "devDependencies": {
-    "@remix-run/dev": "*",
+    "@react-router/dev": "^7.13.0",
+    "@react-router/fs-routes": "^7.13.0",
+    "@react-router/node": "^7.13.0",
+    "@netlify/vite-plugin-react-router": "^2.0.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@types/react-syntax-highlighter": "^15.5.13",

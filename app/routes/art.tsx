@@ -1,17 +1,17 @@
-import { type LoaderFunction, type MetaFunction } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData } from 'react-router';
 
 import type { PageContent, GridImage } from '~/cms';
 
 import { cms } from '~/cms';
 import { Shape1 } from '~/svgs';
 import { Grid } from '../components/Grid';
+import type { Route } from './+types/_index';
 
 import '~/styles/grid.css';
 
 type Content = PageContent;
 
-export const loader: LoaderFunction = async (): Promise<Content> => {
+export const loader = async (): Promise<Content> => {
   const cache = await cms.getGridPageContent('art');
   return cache;
 };
@@ -20,8 +20,8 @@ export const loader: LoaderFunction = async (): Promise<Content> => {
 //   return [];
 // }
 
-export const meta = ({ data }: { data: any }) => {
-  return [{ title: 'Art - zachurich.com', description: data?.content?.intro }];
+export const meta = ({ loaderData }: Route.MetaArgs) => {
+  return [{ title: 'Art - zachurich.com', description: loaderData?.content?.intro }];
 };
 
 export default function Drawings() {
