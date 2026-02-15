@@ -34,7 +34,6 @@ type Content = {
 
 export const loader = async (): Promise<Content> => {
   const navigation = await cms.getNavigation();
-
   return {
     navigation,
   };
@@ -148,7 +147,7 @@ function Header({
 function Footer() {
   return (
     <footer>
-      <p>Copyright {new Date().getFullYear()}</p>
+      <div>Copyright {new Date().getFullYear()}.</div>
     </footer>
   );
 }

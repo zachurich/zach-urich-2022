@@ -11,9 +11,11 @@
   --primary-color: #6691ff;
   --secondary-color: #ffe247;
   --text-color: #eeeeee;
+  --text-color-muted: rgba(255, 255, 255, 0.7);
   --header-underline: rgba(71, 61, 139, 0.5);
-  --gradient: hsl(270deg 100% 7%) 61%, hsl(212deg 51% 21%) 97%,
-    hsl(198deg 40% 34%) 101%, hsl(184deg 22% 50%) 102%, hsl(159deg 28% 72%) 101%,
+  --gradient:
+    hsl(270deg 100% 7%) 61%, hsl(212deg 51% 21%) 97%, hsl(198deg 40% 34%) 101%,
+    hsl(184deg 22% 50%) 102%, hsl(159deg 28% 72%) 101%,
     hsl(104deg 100% 95%) 100%;
 
   --primary-font: 'Roboto Mono', monospace;
@@ -31,8 +33,9 @@
   --secondary-color: #ffe247;
   --text-color: #eeeeee;
   --header-underline: rgba(71, 61, 139, 0.5);
-  --gradient: hsl(270deg 100% 7%) 61%, hsl(212deg 51% 21%) 97%,
-    hsl(198deg 40% 34%) 101%, hsl(184deg 22% 50%) 102%, hsl(159deg 28% 72%) 101%,
+  --gradient:
+    hsl(270deg 100% 7%) 61%, hsl(212deg 51% 21%) 97%, hsl(198deg 40% 34%) 101%,
+    hsl(184deg 22% 50%) 102%, hsl(159deg 28% 72%) 101%,
     hsl(104deg 100% 95%) 100%;
 }
 
@@ -43,9 +46,9 @@
   --secondary-color: #ffd47f;
   --text-color: #fff0e6;
   --header-underline: rgba(255, 153, 102, 0.2);
-  --gradient: hsl(20deg 100% 7%) 61%, hsl(30deg 100% 21%) 97%,
-    hsl(40deg 100% 34%) 101%, hsl(50deg 100% 50%) 102%, hsl(60deg 100% 72%) 101%,
-    hsl(70deg 100% 95%) 100%;
+  --gradient:
+    hsl(20deg 100% 7%) 61%, hsl(30deg 100% 21%) 97%, hsl(40deg 100% 34%) 101%,
+    hsl(50deg 100% 50%) 102%, hsl(60deg 100% 72%) 101%, hsl(70deg 100% 95%) 100%;
 }
 
 .blue-theme {
@@ -55,7 +58,8 @@
   --secondary-color: #80ffff;
   --text-color: #e6ffff;
   --header-underline: rgba(102, 255, 255, 0.2);
-  --gradient: hsl(200deg 100% 7%) 61%, hsl(210deg 100% 21%) 97%,
+  --gradient:
+    hsl(200deg 100% 7%) 61%, hsl(210deg 100% 21%) 97%,
     hsl(220deg 100% 34%) 101%, hsl(230deg 100% 50%) 102%,
     hsl(240deg 100% 72%) 101%, hsl(250deg 100% 95%) 100%;
 }
@@ -67,7 +71,8 @@
   --secondary-color: #80ff80;
   --text-color: #e6ffe6;
   --header-underline: rgba(102, 255, 102, 0.2);
-  --gradient: hsl(120deg 100% 7%) 61%, hsl(130deg 100% 21%) 97%,
+  --gradient:
+    hsl(120deg 100% 7%) 61%, hsl(130deg 100% 21%) 97%,
     hsl(140deg 100% 34%) 101%, hsl(150deg 100% 50%) 102%,
     hsl(160deg 100% 72%) 101%, hsl(170deg 100% 95%) 100%;
 }
@@ -148,7 +153,7 @@ main,
 
 .site-wrapper,
 .container {
-  max-width: 52rem;
+  max-width: 60rem;
 }
 
 .container {
@@ -162,9 +167,14 @@ main {
 }
 
 footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.5rem;
   width: 100vw;
   text-align: center;
-  padding: 1.25rem 0 0.75rem;
+  padding: 1.5rem 0;
   font-size: 0.8rem;
   border-top: 1px solid rgba(71, 61, 139, 0.21);
 }
@@ -173,6 +183,19 @@ a {
   color: var(--primary-color);
   font-weight: var(--weight-bold);
   text-underline-offset: 0.1rem;
+}
+
+a svg {
+  display: inline;
+  vertical-align: top;
+  margin-left: 0;
+  font-size: inherit;
+  height: 1rem;
+  width: 1rem;
+}
+
+a:has(svg) {
+  text-decoration: none;
 }
 
 a:hover {
@@ -386,11 +409,11 @@ img {
 }
 
 .pill {
+  width: fit-content;
   display: block;
   padding: 0.2rem 0.6rem;
   border: 2px solid var(--background-transparent);
   background-color: var(--background-transparent);
-  color: var(--text-color);
   border-radius: 0.15rem;
   font-size: 0.85rem;
   margin-right: 0.5rem;
@@ -398,6 +421,7 @@ img {
 }
 
 .columns {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -447,7 +471,7 @@ img {
 }
 
 .sideBar {
-  min-width: 16rem;
+  min-width: 22rem;
 }
 
 @keyframes blink-underline {

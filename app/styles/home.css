@@ -59,6 +59,25 @@
   gap: 0.25rem;
 }
 
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.info span {
+  color: var(--text-color-muted);
+  font-style: italic;
+}
+
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 @media screen and (min-width: 700px) {
   .intro {
     align-items: flex-end;
