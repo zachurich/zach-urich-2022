@@ -10,7 +10,8 @@ import type { LatestCommit } from '../github';
 import { github } from '../github';
 
 import '~/styles/home.css';
-import { ArrowRight, ExternalLinkIcon } from 'lucide-react';
+import { ExternalLinkIcon } from 'lucide-react';
+import { ExternalLink } from '../components/ExternalLink';
 
 type Content = {
   posts: Post[];
@@ -78,14 +79,14 @@ export default function Index() {
               {posts.map((post, index) => {
                 return (
                   <li key={post.link} className="home-post card">
-                    <Link
-                      to={post.link}
-                      prefetch={index <= 3 ? 'render' : undefined}
-                    >
-                      <span className="home-post-title">
-                        {post.title} <ArrowRight size={16} />
-                      </span>
-                    </Link>
+                    <h3 className="home-post-title">
+                      <Link
+                        to={post.link}
+                        prefetch={index <= 3 ? 'render' : undefined}
+                      >
+                        {post.title}
+                      </Link>
+                    </h3>
                     <span className="home-post-date">{post.date}</span>
                     <span className="home-post-excerpt">{post.excerpt}</span>
                   </li>
@@ -98,9 +99,7 @@ export default function Index() {
             <ul className="card links-list">
               {socialLinks.map((link) => (
                 <li key={link.uri}>
-                  <a target="_blank" rel="noopener noreferrer" href={link.uri}>
-                    {link.linkName} <ExternalLinkIcon />
-                  </a>
+                  <ExternalLink href={link.uri}>{link.linkName}</ExternalLink>
                 </li>
               ))}
             </ul>

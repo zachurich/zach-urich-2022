@@ -253,6 +253,7 @@ export default function App() {
   return (
     <Document>
       <div className={`root ${theme}-theme`}>
+        {/* <div className="overlay" aria-hidden="true" /> */}
         <a className="focus-only" href="#main-content">
           Skip to main content
         </a>

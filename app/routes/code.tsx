@@ -10,6 +10,7 @@ import { cms } from '../cms';
 import type { Route } from './+types/code';
 
 import '~/styles/repos.css';
+import { ExternalLink } from '../components/ExternalLink';
 
 type LoaderType = {
   content: PageContent;
@@ -26,7 +27,9 @@ export const loader = async (): Promise<LoaderType> => {
 };
 
 export const meta = ({ loaderData }: Route.MetaArgs) => {
-  return [{ title: 'Code - zachurich.com', description: loaderData?.content?.intro }];
+  return [
+    { title: 'Code - zachurich.com', description: loaderData?.content?.intro },
+  ];
 };
 
 export default function Drawings() {
@@ -47,10 +50,10 @@ export default function Drawings() {
             <article key={repo.id} className="repo-card card">
               <div className="repo-title">
                 <h2>
-                  <a href={repo.html_url} target="_blank" rel="noreferrer">
+                  <ExternalLink href={repo.html_url}>
                     {repo.fork ? ' Fork: ' : ''}
                     {repo.name}
-                  </a>
+                  </ExternalLink>
                 </h2>
                 <span className="repo-date">
                   {dateFromString(repo.created_at)}
