@@ -10,7 +10,7 @@ import type { LatestCommit } from '../github';
 import { github } from '../github';
 
 import '~/styles/home.css';
-import { ExternalLinkIcon } from 'lucide-react';
+import { ArrowRight, ExternalLinkIcon } from 'lucide-react';
 
 type Content = {
   posts: Post[];
@@ -82,10 +82,11 @@ export default function Index() {
                       to={post.link}
                       prefetch={index <= 3 ? 'render' : undefined}
                     >
-                      <span className="home-post-title">{post.title}</span>
-                      <br></br>
-                      <span className="home-post-date">{post.date}</span>
+                      <span className="home-post-title">
+                        {post.title} <ArrowRight size={16} />
+                      </span>
                     </Link>
+                    <span className="home-post-date">{post.date}</span>
                     <span className="home-post-excerpt">{post.excerpt}</span>
                   </li>
                 );
@@ -98,12 +99,12 @@ export default function Index() {
               {socialLinks.map((link) => (
                 <li key={link.uri}>
                   <a target="_blank" rel="noopener noreferrer" href={link.uri}>
-                    {link.linkName}
+                    {link.linkName} <ExternalLinkIcon />
                   </a>
                 </li>
               ))}
             </ul>
-            <h2 id={content.sectionHeader.toLowerCase()}>📊 site info</h2>
+            <h2 id={content.sectionHeader.toLowerCase()}>⚙️ site info</h2>
             <div className="info card">
               <div className="info-item">
                 <span>Latest commit</span>

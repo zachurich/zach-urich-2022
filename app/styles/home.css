@@ -36,10 +36,6 @@
   text-decoration: none;
 }
 
-.home-post-title {
-  text-decoration: underline;
-}
-
 .home-post-date {
   color: white;
   font-size: 0.9rem;
@@ -61,7 +57,8 @@
 
 .info {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
   gap: 0.75rem;
   font-size: 0.875rem;
 }

@@ -147,7 +147,7 @@ function Header({
 function Footer() {
   return (
     <footer>
-      <div>Copyright {new Date().getFullYear()}.</div>
+      <div>Copyright {new Date().getFullYear()}</div>
     </footer>
   );
 }

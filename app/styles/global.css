@@ -182,12 +182,12 @@ footer {
 a {
   color: var(--primary-color);
   font-weight: var(--weight-bold);
-  text-underline-offset: 0.1rem;
+  text-decoration: none;
 }
 
 a svg {
   display: inline;
-  vertical-align: top;
+  vertical-align: middle;
   margin-left: 0;
   font-size: inherit;
   height: 1rem;
@@ -195,6 +195,10 @@ a svg {
 }
 
 a:has(svg) {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.25rem;
   text-decoration: none;
 }
 
